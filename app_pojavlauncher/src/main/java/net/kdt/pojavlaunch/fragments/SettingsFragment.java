@@ -68,7 +68,7 @@ public class SettingsFragment extends Fragment {
                 pill.setColor(accent);
                 pill.setCornerRadius(UiTheme.dp(requireContext(), 10));
                 mSidebarItems[i].setBackground(pill);
-                mSidebarItems[i].setTextColor(requireContext().getResources().getColor(R.color.ui_on_accent));
+                mSidebarItems[i].setTextColor(UiTheme.getOnAccentColor(accent));
             } else {
                 mSidebarItems[i].setBackground(null);
                 mSidebarItems[i].setTextColor(requireContext().getResources().getColor(R.color.ui_text_primary));

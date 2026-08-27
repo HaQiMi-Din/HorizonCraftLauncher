@@ -57,6 +57,26 @@ public final class UiTheme {
         return ctx.getResources().getColor(R.color.ui_accent);
     }
 
+    /** The theme-overlay style that re-maps the MD3 role attributes to the selected accent. */
+    public static int getAccentOverlayResId() {
+        return getAccentOverlayResId(getAccentName());
+    }
+
+    /** Map an accent name to its per-accent theme overlay style resource. */
+    public static int getAccentOverlayResId(String name) {
+        if (ACCENT_BLUE.equals(name)) return R.style.ThemeOverlay_Horizon_Blue;
+        if (ACCENT_PURPLE.equals(name)) return R.style.ThemeOverlay_Horizon_Purple;
+        if (ACCENT_GREEN.equals(name)) return R.style.ThemeOverlay_Horizon_Green;
+        if (ACCENT_PINK.equals(name)) return R.style.ThemeOverlay_Horizon_Pink;
+        if (ACCENT_TEAL.equals(name)) return R.style.ThemeOverlay_Horizon_Teal;
+        return R.style.ThemeOverlay_Horizon_Orange;
+    }
+
+    /** The text color that should sit on top of the given accent (onPrimary role). */
+    public static int getOnAccentColor(int accent) {
+        return (ColorUtils.calculateLuminance(accent) > 0.45f) ? 0xFF201A00 : 0xFFFFFFFF;
+    }
+
     public static void setAccent(String name) {
         LauncherPreferences.DEFAULT_PREF.edit().putString(PREF_ACCENT, name).apply();
     }
@@ -89,7 +109,7 @@ public final class UiTheme {
     public static void styleDockButton(TextView button, boolean selected) {
         Context ctx = button.getContext();
         int accent = getAccentColor(ctx);
-        int onAccent = ctx.getResources().getColor(R.color.ui_on_accent);
+        int onAccent = getOnAccentColor(accent);
         int secondary = ctx.getResources().getColor(R.color.ui_text_secondary);
 
         if (selected) {
@@ -138,31 +158,3 @@ public final class UiTheme {
         }
         return ACCENT_COLORS[0];
     }
-
-    /** Build a full MD3 tonal scheme for the selected accent + current dark/light mode.
-     *  Order: { primary, onPrimary, primaryContainer, onPrimaryContainer,
-     *           secondaryContainer, onSecondaryContainer }
-     *  This lets every role of the Material 3 color system follow the accent. */
-    public static int[] buildColorScheme(Context ctx, int accent) {
-        boolean dark = isDark();
-        int primary, primaryContainer, onPrimaryContainer, secondaryContainer, onSecondaryContainer;
-        if (dark) {
-            primary = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.22f);
-            primaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.35f);
-            onPrimaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.60f);
-            secondaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.60f);
-            onSecondaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.50f);
-        } else {
-            primary = ColorUtils.blendARGB(accent, 0xFF000000, 0.15f);
-            primaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.70f);
-            onPrimaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.50f);
-            secondaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.85f);
-            onSecondaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.55f);
-        }
-        int onPrimary = (ColorUtils.calculateLuminance(primary) > 0.45f) ? 0xFF201A00 : 0xFFFFFFFF;
-        return new int[]{
-                primary, onPrimary, primaryContainer, onPrimaryContainer,
-                secondaryContainer, onSecondaryContainer
-        };
-    }
-}

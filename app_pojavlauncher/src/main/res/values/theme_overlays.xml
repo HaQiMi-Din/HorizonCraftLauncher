@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Per-accent theme overlays. BaseActivity.onCreate applies the overlay
+        matching the saved accent via getTheme().applyStyle(), so every
+        ?attr/colorPrimary / colorOnPrimary / ... resolves to the selected
+        accent's MD3 tonal colors (light/dark values in accent_colors.xml).
+    -->
+    <style name="ThemeOverlay.Horizon.Orange">
+        <item name="colorPrimary">@color/accent_orange_primary</item>
+        <item name="colorOnPrimary">@color/accent_orange_on_primary</item>
+        <item name="colorPrimaryContainer">@color/accent_orange_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/accent_orange_on_primary_container</item>
+        <item name="colorSecondaryContainer">@color/accent_orange_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/accent_orange_on_secondary_container</item>
+    </style>
+
+    <style name="ThemeOverlay.Horizon.Blue">
+        <item name="colorPrimary">@color/accent_blue_primary</item>
+        <item name="colorOnPrimary">@color/accent_blue_on_primary</item>
+        <item name="colorPrimaryContainer">@color/accent_blue_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/accent_blue_on_primary_container</item>
+        <item name="colorSecondaryContainer">@color/accent_blue_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/accent_blue_on_secondary_container</item>
+    </style>
+
+    <style name="ThemeOverlay.Horizon.Purple">
+        <item name="colorPrimary">@color/accent_purple_primary</item>
+        <item name="colorOnPrimary">@color/accent_purple_on_primary</item>
+        <item name="colorPrimaryContainer">@color/accent_purple_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/accent_purple_on_primary_container</item>
+        <item name="colorSecondaryContainer">@color/accent_purple_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/accent_purple_on_secondary_container</item>
+    </style>
+
+    <style name="ThemeOverlay.Horizon.Green">
+        <item name="colorPrimary">@color/accent_green_primary</item>
+        <item name="colorOnPrimary">@color/accent_green_on_primary</item>
+        <item name="colorPrimaryContainer">@color/accent_green_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/accent_green_on_primary_container</item>
+        <item name="colorSecondaryContainer">@color/accent_green_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/accent_green_on_secondary_container</item>
+    </style>
+
+    <style name="ThemeOverlay.Horizon.Pink">
+        <item name="colorPrimary">@color/accent_pink_primary</item>
+        <item name="colorOnPrimary">@color/accent_pink_on_primary</item>
+        <item name="colorPrimaryContainer">@color/accent_pink_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/accent_pink_on_primary_container</item>
+        <item name="colorSecondaryContainer">@color/accent_pink_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/accent_pink_on_secondary_container</item>
+    </style>
+
+    <style name="ThemeOverlay.Horizon.Teal">
+        <item name="colorPrimary">@color/accent_teal_primary</item>
+        <item name="colorOnPrimary">@color/accent_teal_on_primary</item>
+        <item name="colorPrimaryContainer">@color/accent_teal_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/accent_teal_on_primary_container</item>
+        <item name="colorSecondaryContainer">@color/accent_teal_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/accent_teal_on_secondary_container</item>
+    </style>
+</resources>

@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import android.content.*;
-import android.content.res.Resources;
 import android.os.*;
 import androidx.appcompat.app.*;
 import net.kdt.pojavlaunch.utils.*;
@@ -14,30 +13,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         // LocaleUtils.setLocale also initializes LauncherPreferences.DEFAULT_PREF,
         // so UiTheme can be safely queried right after.
-        Context localized = LocaleUtils.setLocale(newBase);
-        super.attachBaseContext(new AccentContextWrapper(localized));
-    }
-
-    /** Wraps the context so every Resources lookup resolves the MD3 role
-     *  colors (ui_accent and friends) from the user-selected accent. */
-    private static final class AccentContextWrapper extends ContextWrapper {
-        private final Resources mAccentResources;
-
-        AccentContextWrapper(Context base) {
-            super(base);
-            int accent = UiTheme.getAccentColor(base);
-            int[] scheme = UiTheme.buildColorScheme(base, accent);
-            mAccentResources = new AccentResources(base.getResources(), scheme);
-        }
-
-        @Override
-        public Resources getResources() {
-            return mAccentResources;
-        }
+        super.attachBaseContext(LocaleUtils.setLocale(newBase));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Overlay the selected accent's MD3 role colors onto the theme BEFORE
+        // inflation, so every ?attr/colorPrimary / colorOnPrimary / container
+        // resolves to the current accent in all layouts and Material components.
+        getTheme().applyStyle(UiTheme.getAccentOverlayResId(), true);
         super.onCreate(savedInstanceState);
         LocaleUtils.setLocale(this);
         Tools.setFullscreen(this, setFullscreen());
