@@ -45,22 +45,6 @@ public class FabriclikeUtils {
         this.mName = mName;
     }
 
-    private static final String LOADER_METADATA_URL = "%s/versions/loader/%s";
-    private static final String GAME_METADATA_URL = "%s/versions/game";
-
-    private static final String JSON_DOWNLOAD_URL = "%s/versions/loader/%s/%s/profile/json";
-
-    private final String mApiUrl;
-    private final String mCachePrefix;
-    private final String mName;
-    private final String mIconName;
-
-    private FabriclikeUtils(String mApiUrl, String cachePrefix, String mName, String iconName) {
-        this.mApiUrl = mApiUrl;
-        this.mCachePrefix = cachePrefix;
-        this.mIconName = iconName;
-        this.mName = mName;
-    }
 
     public FabricVersion[] downloadGameVersions() throws IOException{
         IOException last = null;
