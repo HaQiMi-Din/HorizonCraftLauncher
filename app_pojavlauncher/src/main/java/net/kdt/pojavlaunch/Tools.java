@@ -73,6 +73,7 @@ import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import org.apache.commons.codec.binary.Hex;
+import org.json.JSONObject;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.glfw.CallbackBridge;
 
@@ -337,6 +338,18 @@ public final class Tools {
         }
 
         javaArgList.addAll(Arrays.asList(getMinecraftJVMArgs(versionId, gamedir)));
+
+        // External (LittleSkin / authlib-injector) login: inject the agent so the
+        // game authenticates against the chosen yggdrasil auth server.
+        if (minecraftAccount != null && minecraftAccount.isExternal()
+                && isValidString(minecraftAccount.authlibServer)) {
+            File aiJar = new File(Tools.DIR_DATA, "authlib-injector/authlib-injector.jar");
+            if (aiJar.isFile()) {
+                javaArgList.add("-javaagent:" + aiJar.getAbsolutePath()
+                        + "=" + minecraftAccount.authlibServer.trim());
+            }
+        }
+
         javaArgList.add("-cp");
         javaArgList.add(launchClassPath + ":" + getLWJGL3ClassPath());
 
@@ -1438,4 +1451,29 @@ public final class Tools {
         MinecraftAccount currentProfile = PojavProfile.getCurrentProfileContent(ctx, null);
         return currentProfile == null || currentProfile.isLocal();
     }
+    /** Ensure the authlib-injector agent jar is present for external (yggdrasil) login.
+     *  Downloads the latest build if missing. Returns true on success. */
+    public static boolean ensureAuthlibInjector(Context ctx) {
+        File dir = new File(DIR_DATA, "authlib-injector");
+        File jar = new File(dir, "authlib-injector.jar");
+        if (jar.isFile() && jar.length() > 100000) return true;
+        try {
+            FileUtils.ensureParentDirectory(jar);
+            String latest = DownloadUtils.downloadString("https://authlib-injector.yushi.moe/artifact/latest.json");
+            String dl = null;
+            try {
+                dl = new JSONObject(latest).optString("download_url", null);
+            } catch (Exception ignored) {}
+            if (dl == null || dl.isEmpty()) {
+                // fallback: a pinned, known-good build
+                dl = "https://authlib-injector.yushi.moe/artifact/56/authlib-injector-1.2.8.jar";
+            }
+            DownloadUtils.downloadFile(dl, jar);
+            return jar.isFile() && jar.length() > 100000;
+        } catch (Exception e) {
+            Log.w("Tools", "Could not download authlib-injector", e);
+            return false;
+        }
+    }
 }
+

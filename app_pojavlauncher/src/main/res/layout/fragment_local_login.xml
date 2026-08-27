@@ -55,8 +55,6 @@
         android:layout_marginTop="@dimen/padding_heavy"
         android:onClick="loginMC"
         android:text="@string/login_online_login_label"
-
-        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_edit_email" />

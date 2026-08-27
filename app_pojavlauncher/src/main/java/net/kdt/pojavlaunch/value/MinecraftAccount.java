@@ -29,6 +29,10 @@ public class MinecraftAccount {
     public String xuid;
     public long expiresAt;
     public String skinFaceBase64;
+    /** External (authlib-injector / LittleSkin-style yggdrasil) login. */
+    public boolean isExternal = false;
+    /** Auth server URL, e.g. https://littleskin.cn/api/yggdrasil */
+    public String authlibServer;
     private Bitmap mFaceCache;
     
     void updateSkinFace(String uuid) {
@@ -50,6 +54,10 @@ public class MinecraftAccount {
 
     public boolean isDemo(){
         return username.startsWith("Demo.");
+    }
+
+    public boolean isExternal(){
+        return isExternal;
     }
     
     public void updateSkinFace() {

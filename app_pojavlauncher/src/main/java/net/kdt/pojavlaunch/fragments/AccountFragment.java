@@ -79,9 +79,13 @@ public class AccountFragment extends Fragment {
         accName.setText(name);
 
         MinecraftAccount account = MinecraftAccount.load(name);
-        accType.setText(account != null && account.isMicrosoft
-                ? getString(R.string.ui_account_type_ms)
-                : getString(R.string.ui_account_type_offline));
+        if (account != null && account.isExternal) {
+            accType.setText(getString(R.string.ui_authlib_type));
+        } else {
+            accType.setText(account != null && account.isMicrosoft
+                    ? getString(R.string.ui_account_type_ms)
+                    : getString(R.string.ui_account_type_offline));
+        }
         accCurrent.setText(isCurrent ? getString(R.string.ui_account_current) : "");
 
         Button use = row.findViewById(R.id.acc_use);

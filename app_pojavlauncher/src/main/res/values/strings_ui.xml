@@ -91,4 +91,18 @@
     <string name="ui_account_logout">退出</string>
     <string name="ui_account_use">使用</string>
     <string name="ui_account_current">当前</string>
+    <!-- External (LittleSkin / authlib-injector) login -->
+    <string name="ui_authlib_title">LittleSkin 皮肤站登录</string>
+    <string name="ui_authlib_server_hint">认证服务器地址</string>
+    <string name="ui_authlib_username_hint">用户名</string>
+    <string name="ui_authlib_password_hint">密码</string>
+    <string name="ui_authlib_login">登录</string>
+    <string name="ui_authlib_working">正在登录…</string>
+    <string name="ui_authlib_ok">已登录 %1$s</string>
+    <string name="ui_authlib_err_fields">请填写服务器地址、用户名和密码</string>
+    <string name="ui_authlib_err_http">认证失败（HTTP %1$d）：%2$s</string>
+    <string name="ui_authlib_err_no_profile">认证服务器未返回游戏角色</string>
+    <string name="ui_authlib_err_generic">登录失败：%1$s</string>
+    <string name="ui_authlib_type">LittleSkin / 外置登录</string>
+    <string name="ui_authlib_jar_warn">账号已保存，但 authlib-injector 下载失败</string>
 </resources>

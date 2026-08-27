@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ui_bg"
+    android:paddingHorizontal="@dimen/fragment_padding_medium"
+    >
+
+    <View
+        android:id="@+id/authlib_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:background="@drawable/background_card"
+        android:translationZ="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ui_authlib_title"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        android:textColor="@color/ui_text_primary"
+        app:layout_constraintStart_toStartOf="@+id/authlib_edit_server"
+        app:layout_constraintTop_toTopOf="@+id/authlib_menu"
+        android:layout_marginTop="@dimen/_16sdp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ui_authlib_server_hint"
+        android:textColor="@color/ui_text_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/authlib_edit_server"
+        app:layout_constraintStart_toStartOf="@+id/authlib_edit_server" />
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/authlib_edit_server"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_56sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textUri"
+        android:text="https://littleskin.cn/api/yggdrasil"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toEndOf="@+id/authlib_menu"
+        app:layout_constraintStart_toStartOf="@+id/authlib_menu"
+        app:layout_constraintTop_toTopOf="@+id/authlib_menu" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ui_authlib_username_hint"
+        android:textColor="@color/ui_text_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/authlib_edit_username"
+        app:layout_constraintStart_toStartOf="@+id/authlib_edit_username" />
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/authlib_edit_username"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="text"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toEndOf="@+id/authlib_menu"
+        app:layout_constraintStart_toStartOf="@+id/authlib_menu"
+        app:layout_constraintTop_toBottomOf="@+id/authlib_edit_server" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ui_authlib_password_hint"
+        android:textColor="@color/ui_text_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/authlib_edit_password"
+        app:layout_constraintStart_toStartOf="@+id/authlib_edit_password" />
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/authlib_edit_password"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textPassword"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toEndOf="@+id/authlib_menu"
+        app:layout_constraintStart_toStartOf="@+id/authlib_menu"
+        app:layout_constraintTop_toBottomOf="@+id/authlib_edit_username" />
+
+    <com.kdt.mcgui.MineButton
+        android:id="@+id/authlib_login_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:text="@string/ui_authlib_login"
+        app:layout_constraintEnd_toEndOf="@+id/authlib_menu"
+        app:layout_constraintStart_toStartOf="@+id/authlib_menu"
+        app:layout_constraintTop_toBottomOf="@+id/authlib_edit_password" />
+
+    <TextView
+        android:id="@+id/authlib_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/ui_error"
+        app:layout_constraintEnd_toEndOf="@+id/authlib_menu"
+        app:layout_constraintStart_toStartOf="@+id/authlib_menu"
+        app:layout_constraintTop_toBottomOf="@+id/authlib_login_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
