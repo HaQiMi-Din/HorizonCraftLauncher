@@ -35,6 +35,7 @@ jobs:
           wget https://github.com/PojavLauncherTeam/LTW/releases/latest/download/ltw-release.aar
 
       - name: Get JRE 8
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
@@ -45,6 +46,7 @@ jobs:
           name: jre8-pojav
 
       - name: Get JRE17
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
@@ -55,6 +57,7 @@ jobs:
           name: jre17-pojav
 
       - name: Get JRE21
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
