@@ -7,14 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="@dimen/_16sdp">
 
         <!-- ============ Left: launch controls ============ -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1.15"
             android:orientation="vertical"
             android:paddingEnd="@dimen/_16sdp">
@@ -93,6 +93,12 @@
                 android:textSize="@dimen/_13ssp"
                 android:textColor="@color/ui_text_secondary"/>
 
+            <!-- Spacer: pins the play button to the bottom, removing the big void -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
             <!-- Play button -->
             <Button
                 android:id="@+id/play_button"
@@ -109,7 +115,7 @@
         <!-- ============ Right: info & quick actions ============ -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 

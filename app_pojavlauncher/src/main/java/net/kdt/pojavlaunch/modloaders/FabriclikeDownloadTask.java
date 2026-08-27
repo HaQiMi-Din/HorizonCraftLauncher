@@ -43,7 +43,7 @@ public class FabriclikeDownloadTask implements Runnable, Tools.DownloaderFeedbac
     }
 
     private boolean runCatching() throws IOException{
-        String fabricJson = DownloadUtils.downloadString(mUtils.createJsonDownloadUrl(mGameVersion, mLoaderVersion));
+        String fabricJson = mUtils.downloadInstallerJson(mGameVersion, mLoaderVersion);
         String versionId;
         try {
             JSONObject fabricJsonObject = new JSONObject(fabricJson);

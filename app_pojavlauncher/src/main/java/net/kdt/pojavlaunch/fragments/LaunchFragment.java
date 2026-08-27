@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.kdt.mcgui.mcAccountSpinner;
 import com.kdt.mcgui.mcVersionSpinner;
 
+import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.UiTheme;
@@ -112,8 +112,7 @@ public class LaunchFragment extends Fragment {
     private void refreshInfo() {
         // Account
         try {
-            mcAccountSpinner spinner = requireActivity().findViewById(R.id.account_spinner);
-            MinecraftAccount account = spinner.getSelectedAccount();
+            MinecraftAccount account = PojavProfile.getCurrentProfileContent(requireContext(), null);
             if (account != null) {
                 mAccountText.setText(getString(R.string.ui_launch_account, account.username));
             } else {

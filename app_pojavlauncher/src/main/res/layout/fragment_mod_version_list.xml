@@ -35,7 +35,7 @@
         android:textColor="@color/ui_text_primary" />
 
     <ExpandableListView
-        android:scrollbarThumbVertical="@color/minebutton_color"
+        android:scrollbarThumbVertical="?attr/colorPrimary"
         android:id="@+id/mod_dl_expandable_version_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -122,15 +122,6 @@
             android:paddingHorizontal="@dimen/_12sdp"
             android:textSize="@dimen/_12ssp"
             android:textColor="@color/ui_text_secondary"/>
-
-        <com.kdt.mcgui.mcAccountSpinner
-            android:id="@+id/account_spinner"
-            android:layout_width="170dp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:dropDownWidth="250dp"
-            android:dropDownVerticalOffset="@dimen/_48sdp" />
-
     </LinearLayout>
 
     <View

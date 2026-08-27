@@ -114,7 +114,9 @@ public class ProfileAdapter extends BaseAdapter {
         // Set selected background if needed
         if(displaySelection){
             String selectedProfile = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE,"");
-            extendedTextView.setBackgroundColor(selectedProfile.equals(nm) ? ColorUtils.setAlphaComponent(Color.WHITE,60) : Color.TRANSPARENT);
+            extendedTextView.setBackgroundColor(selectedProfile.equals(nm)
+                    ? ColorUtils.setAlphaComponent(net.kdt.pojavlaunch.UiTheme.getAccentColor(v.getContext()), 60)
+                    : Color.TRANSPARENT);
         }else extendedTextView.setBackgroundColor(Color.TRANSPARENT);
     }
 
