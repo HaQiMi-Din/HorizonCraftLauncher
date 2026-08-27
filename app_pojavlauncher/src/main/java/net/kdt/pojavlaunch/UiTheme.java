@@ -158,3 +158,4 @@ public final class UiTheme {
         }
         return ACCENT_COLORS[0];
     }
+}
