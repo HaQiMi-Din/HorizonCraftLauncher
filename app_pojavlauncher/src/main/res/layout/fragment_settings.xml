@@ -168,6 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
+                        android:showText="false"
                         android:text="@string/ui_settings_dynamic"
                         android:textColor="@color/ui_text_primary"/>
                 </LinearLayout>
@@ -200,6 +201,7 @@
                         android:id="@+id/toggle_dock_labels"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:showText="false"
                         android:text="@string/ui_settings_dock_labels"
                         android:textColor="@color/ui_text_primary"/>
                     <com.google.android.material.materialswitch.MaterialSwitch
@@ -207,6 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
+                        android:showText="false"
                         android:text="@string/ui_settings_clock"
                         android:textColor="@color/ui_text_primary"/>
                 </LinearLayout>

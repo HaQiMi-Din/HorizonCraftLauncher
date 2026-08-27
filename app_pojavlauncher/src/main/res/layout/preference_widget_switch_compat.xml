@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Override of androidx.preference's preference_widget_switch_compat.xml.
+  The library widget leaves SwitchCompat with no textOn/textOff while
+  showText defaults to true, which crashes SwitchCompat.onMeasure with an
+  NPE (StaticLayout on null CharSequence) on Android 12+ / API 31+.
+  Setting android:showText="false" keeps the switch fully functional while
+  disabling the on/off label rendering that triggers the crash.
+-->
+<androidx.appcompat.widget.SwitchCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/switchWidget"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:showText="false"
+    android:focusable="false"
+    android:clickable="false"
+    android:background="@null"/>
