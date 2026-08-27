@@ -4,6 +4,11 @@
     <string name="app_name">Horizon Craft Launcher (Minecraft: Java Edition)</string>
     <string name="app_short_name">Horizon Craft Launcher</string>
 
+    <!-- Override: android_gamepad_remapper ships 'Move the %s joystick to the %s'
+         with two non-positional specifiers, which fails AAPT2 resource merging.
+         Republish with positional specifiers to satisfy the resource merger. -->
+    <string name="bind_process_waiting_joystick">Move the %1$s joystick to the %2$s</string>
+
     <!-- Action bar part -->
 
     <!-- Languages list part -->
