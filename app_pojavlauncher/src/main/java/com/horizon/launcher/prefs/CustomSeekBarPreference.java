@@ -64,7 +64,7 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         // Title inherits the theme's text color so it stays legible in both light and dark mode
         TextView titleTextView = (TextView) view.findViewById(android.R.id.title);
         if (titleTextView != null) {
-            titleTextView.setTextColor(UiTheme.getTextPrimaryColor(view.getContext()));
+            titleTextView.setTextColor(UiTheme.getTextPrimaryColor(titleTextView.getContext()));
         }
 
         mTextView = (TextView) view.findViewById(R.id.seekbar_value);
