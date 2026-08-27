@@ -142,7 +142,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:text="@string/customctrl_toggle"
-            android:showText="false"
+            app:showText="false"
             android:layout_marginTop="@dimen/padding_moderate"
             android:layout_marginHorizontal="@dimen/padding_moderate"
             android:paddingHorizontal="@dimen/padding_medium"
