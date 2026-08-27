@@ -88,7 +88,7 @@ configurations {
 }
 
 android {
-    namespace 'net.kdt.pojavlaunch'
+    namespace 'com.horizon.launcher'
 
     compileSdk = 34
 
@@ -112,7 +112,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "net.kdt.pojavlaunch"
+        applicationId "com.horizon.launcher"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode getDateSeconds()
@@ -128,9 +128,9 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'application_package', 'net.kdt.pojavlaunch.debug'
-            resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.debug'
-            resValue 'string', 'shareProviderAuthority', 'net.kdt.pojavlaunch.scoped.controlfolder.debug'
+            resValue 'string', 'application_package', 'com.horizon.launcher.debug'
+            resValue 'string', 'storageProviderAuthorities', 'com.horizon.launcher.scoped.gamefolder.debug'
+            resValue 'string', 'shareProviderAuthority', 'com.horizon.launcher.scoped.controlfolder.debug'
         }
         proguard {
             initWith debug
@@ -149,8 +149,8 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder'
-            resValue 'string', 'application_package', 'net.kdt.pojavlaunch'
+            resValue 'string', 'storageProviderAuthorities', 'com.horizon.launcher.scoped.gamefolder'
+            resValue 'string', 'application_package', 'com.horizon.launcher'
         }
         gplay {
             initWith release

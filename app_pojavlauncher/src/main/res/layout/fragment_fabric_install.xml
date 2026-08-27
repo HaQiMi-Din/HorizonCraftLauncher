@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fabric_dl_game_version"
+        android:textColor="@color/ui_text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/fabric_installer_game_ver_spinner"
         app:layout_constraintStart_toStartOf="@+id/fabric_installer_game_ver_spinner" />
 
@@ -45,6 +46,8 @@
         android:paddingVertical="0dp"
         android:paddingStart="7dp"
         android:paddingEnd="7dp"
+        android:textColor="@color/ui_text_primary"
+        android:popupBackground="@color/ui_surface"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +69,7 @@
         android:layout_height="wrap_content"
 
         android:text="@string/fabric_dl_loader_version"
+        android:textColor="@color/ui_text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/fabric_installer_loader_ver_spinner"
         app:layout_constraintStart_toStartOf="@+id/fabric_installer_loader_ver_spinner" />
 
@@ -79,6 +83,8 @@
         android:paddingVertical="0dp"
         android:paddingStart="7dp"
         android:paddingEnd="7dp"
+        android:textColor="@color/ui_text_primary"
+        android:popupBackground="@color/ui_surface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fabric_installer_game_ver_spinner" />
@@ -110,6 +116,8 @@
         android:layout_marginTop="@dimen/padding_extra_large"
         android:minHeight="@dimen/_30sdp"
         android:checked="true"
+        android:buttonTint="?attr/colorPrimary"
+        android:textColor="@color/ui_text_primary"
         app:layout_constraintStart_toStartOf="@+id/fabric_installer_loader_ver_spinner"
         app:layout_constraintTop_toBottomOf="@+id/fabric_installer_loader_ver_spinner" />
 

@@ -1,7 +1,7 @@
 package com.kdt.mcgui;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static net.kdt.pojavlaunch.fragments.ProfileEditorFragment.DELETED_PROFILE;
+import static com.horizon.launcher.fragments.ProfileEditorFragment.DELETED_PROFILE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,15 +21,15 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.fragments.ProfileEditorFragment;
-import net.kdt.pojavlaunch.fragments.ProfileTypeSelectFragment;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-import net.kdt.pojavlaunch.profiles.ProfileAdapter;
-import net.kdt.pojavlaunch.profiles.ProfileAdapterExtra;
+import com.horizon.launcher.R;
+import com.horizon.launcher.Tools;
+import com.horizon.launcher.extra.ExtraConstants;
+import com.horizon.launcher.extra.ExtraCore;
+import com.horizon.launcher.fragments.ProfileEditorFragment;
+import com.horizon.launcher.fragments.ProfileTypeSelectFragment;
+import com.horizon.launcher.prefs.LauncherPreferences;
+import com.horizon.launcher.profiles.ProfileAdapter;
+import com.horizon.launcher.profiles.ProfileAdapterExtra;
 
 import fr.spse.extended_view.ExtendedTextView;
 

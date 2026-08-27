@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:translationZ="10dp"
-        android:background="@drawable/background_overlay"
+        android:background="@drawable/card_bg_border"
         android:paddingHorizontal="@dimen/padding_medium"
         android:paddingVertical="@dimen/padding_medium"
         android:layout_marginTop="@dimen/fragment_padding_medium"

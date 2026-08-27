@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">Horizon Craft Launcher (Minecraft: Java Edition)</string>
-    <string name="app_short_name">Horizon Craft Launcher</string>
+    <string name="app_name">HorizonCraftLauncher</string>
+    <string name="app_short_name">HorizonCraftLauncher</string>
 
     <!-- Override: android_gamepad_remapper ships 'Move the %s joystick to the %s'
          with two non-positional specifiers, which fails AAPT2 resource merging.

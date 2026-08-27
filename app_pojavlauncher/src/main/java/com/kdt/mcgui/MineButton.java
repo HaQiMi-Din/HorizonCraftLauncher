@@ -4,8 +4,8 @@ import android.graphics.drawable.*;
 import android.util.*;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.UiTheme;
+import com.horizon.launcher.R;
+import com.horizon.launcher.UiTheme;
 public class MineButton extends androidx.appcompat.widget.AppCompatButton {
 	
 	public MineButton(Context ctx) {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <net.kdt.pojavlaunch.imgcropper.CropperView
+    <com.horizon.launcher.imgcropper.CropperView
         android:id="@+id/crop_dialog_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

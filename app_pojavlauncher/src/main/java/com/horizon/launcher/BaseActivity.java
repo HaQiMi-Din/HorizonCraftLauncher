@@ -1,0 +1,60 @@
+package com.horizon.launcher;
+
+import android.content.*;
+import android.os.*;
+import androidx.appcompat.app.*;
+import com.horizon.launcher.utils.*;
+
+import static com.horizon.launcher.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
+
+public abstract class BaseActivity extends AppCompatActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        // LocaleUtils.setLocale also initializes LauncherPreferences.DEFAULT_PREF,
+        // so UiTheme can be safely queried right after.
+        super.attachBaseContext(LocaleUtils.setLocale(newBase));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Overlay the selected accent's MD3 role colors onto the theme BEFORE
+        // inflation, so every ?attr/colorPrimary / colorOnPrimary / container
+        // resolves to the current accent in all layouts and Material components.
+        getTheme().applyStyle(UiTheme.getAccentOverlayResId(), true);
+        super.onCreate(savedInstanceState);
+        LocaleUtils.setLocale(this);
+        Tools.setFullscreen(this, setFullscreen());
+        Tools.updateWindowSize(this);
+    }
+
+    /** @return Whether the activity should be set as a fullscreen one */
+    public boolean setFullscreen(){
+        return true;
+    }
+
+
+    @Override
+    public void startActivity(Intent i) {
+        super.startActivity(i);
+        //new Throwable("StartActivity").printStackTrace();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Tools.checkStorageInteractive(this);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Tools.setFullscreen(this, setFullscreen());
+        Tools.ignoreNotch(shouldIgnoreNotch(),this);
+    }
+
+    /** @return Whether or not the notch should be ignored */
+    protected boolean shouldIgnoreNotch(){
+        return PREF_IGNORE_NOTCH;
+    }
+}

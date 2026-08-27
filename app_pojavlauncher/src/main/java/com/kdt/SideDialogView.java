@@ -1,6 +1,6 @@
 package com.kdt;
 
-import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
+import static com.horizon.launcher.Tools.currentDisplayMetrics;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -21,8 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.res.ResourcesCompat;
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
+import com.horizon.launcher.R;
+import com.horizon.launcher.Tools;
 
 /**
  * The base class for side dialog views

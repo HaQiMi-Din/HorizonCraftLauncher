@@ -1,7 +1,7 @@
 package org.lwjgl.glfw;
 
-import net.kdt.pojavlaunch.*;
-import net.kdt.pojavlaunch.customcontrols.gamepad.direct.DirectGamepadEnableHandler;
+import com.horizon.launcher.*;
+import com.horizon.launcher.customcontrols.gamepad.direct.DirectGamepadEnableHandler;
 
 import android.content.*;
 import android.util.Log;

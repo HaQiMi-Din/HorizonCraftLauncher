@@ -513,7 +513,7 @@ static bool tryCriticalNative(JNIEnv *env) {
     static const JNINativeMethod testJNIMethod[] = {
             { "testCriticalNative", "(II)V", dvm_testCriticalNative}
     };
-    jclass criticalNativeTest = (*env)->FindClass(env, "net/kdt/pojavlaunch/CriticalNativeTest");
+    jclass criticalNativeTest = (*env)->FindClass(env, "com/horizon/launcher/CriticalNativeTest");
     if(criticalNativeTest == NULL) {
         LOGD("No CriticalNativeTest class found !");
         (*env)->ExceptionClear(env);
