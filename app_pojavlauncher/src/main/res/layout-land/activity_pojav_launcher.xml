@@ -1,53 +1,162 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:orientation="vertical"
+    android:background="@color/ui_bg">
 
-    <com.kdt.mcgui.mcAccountSpinner
-        android:id="@+id/account_spinner"
+    <!-- ================= GNOME-style top dock bar ================= -->
+    <LinearLayout
+        android:id="@+id/dock_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_42sdp"
+        android:layout_height="@dimen/_64sdp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/ui_topbar"
+        android:paddingHorizontal="@dimen/_8sdp">
 
-        android:dropDownWidth="wrap_content"
-        android:dropDownVerticalOffset="@dimen/_42sdp"
+        <!-- Brand mark (GNOME "Activities" role) -->
+        <TextView
+            android:id="@+id/dock_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:text="@string/ui_brand"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            android:textColor="@color/ui_accent"/>
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@color/ui_divider"/>
 
-    <ImageButton
-        android:id="@+id/setting_button"
-        android:layout_width="@dimen/_52sdp"
-        android:layout_height="@dimen/_42sdp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_settings"
-        android:scaleType="fitCenter"
+        <!-- Dock navigation items -->
+        <TextView
+            android:id="@+id/dock_launch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTop="@drawable/ic_menu_home"
+            android:text="@string/ui_dock_launch"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/ui_text_secondary"/>
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/dock_versions"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTop="@drawable/ic_edit_profile"
+            android:text="@string/ui_dock_versions"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/ui_text_secondary"/>
 
+        <TextView
+            android:id="@+id/dock_downloads"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTop="@drawable/ic_download"
+            android:text="@string/ui_dock_downloads"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/ui_text_secondary"/>
 
+        <TextView
+            android:id="@+id/dock_modpacks"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTop="@drawable/ic_modpack"
+            android:text="@string/ui_dock_modpacks"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/ui_text_secondary"/>
 
-    <!-- Holding most of the dynamic content -->
+        <TextView
+            android:id="@+id/dock_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTop="@drawable/ic_menu_settings"
+            android:text="@string/ui_dock_settings"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/ui_text_secondary"/>
+
+        <TextView
+            android:id="@+id/dock_account"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTop="@drawable/ic_account"
+            android:text="@string/ui_dock_account"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/ui_text_secondary"/>
+
+        <!-- Right side of the dock: clock + account + settings -->
+        <TextView
+            android:id="@+id/dock_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/ui_text_secondary"/>
+
+        <com.kdt.mcgui.mcAccountSpinner
+            android:id="@+id/account_spinner"
+            android:layout_width="170dp"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:dropDownWidth="250dp"
+            android:dropDownVerticalOffset="@dimen/_48sdp" />
+
+        <ImageButton
+            android:id="@+id/setting_button"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_settings"
+            android:contentDescription="@string/ui_dock_settings"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/ui_divider"/>
+
+    <!-- ================= Content area (fills remaining space) ================= -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_fragment"
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/progress_layout"
-        app:layout_constraintTop_toBottomOf="@+id/account_spinner" />
+        android:layout_weight="1"/>
 
-
+    <!-- Download / install progress bar (hidden when idle) -->
     <com.kdt.mcgui.ProgressLayout
         android:id="@+id/progress_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"/>
+</LinearLayout>
