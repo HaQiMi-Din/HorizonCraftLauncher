@@ -1,9 +1,8 @@
 package net.kdt.pojavlaunch;
 
-import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.Theme;
+import android.content.res.Resources.Theme;
 import android.util.DisplayMetrics;
 
 import androidx.annotation.NonNull;
@@ -66,11 +65,6 @@ public final class AccentResources extends Resources {
     @Override
     public DisplayMetrics getDisplayMetrics() {
         return mBase.getDisplayMetrics();
-    }
-
-    @Override
-    public AssetManager getAssets() {
-        return mBase.getAssets();
     }
 
     @Override
