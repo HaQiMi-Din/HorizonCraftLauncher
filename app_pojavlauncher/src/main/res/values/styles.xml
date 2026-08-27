@@ -25,9 +25,6 @@
         <item name="android:textColorPrimary">@color/ui_text_primary</item>
         <item name="android:textColorSecondary">@color/ui_text_secondary</item>
         <item name="android:textColorHint">@color/ui_text_secondary</item>
-        <item name="textColorPrimary">@color/ui_text_primary</item>
-        <item name="textColorSecondary">@color/ui_text_secondary</item>
-        <item name="textColorHint">@color/ui_text_secondary</item>
         <item name="colorSurface">@color/ui_bg</item>
         <item name="colorOnSurface">@color/ui_text_primary</item>
         <item name="colorSurfaceVariant">@color/ui_surface</item>
