@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_primary"
             android:text="@string/ui_account_add"
-            android:textColor="@color/ui_on_accent"/>
+            android:textColor="?attr/colorOnPrimary"/>
     </LinearLayout>
 
     <ScrollView

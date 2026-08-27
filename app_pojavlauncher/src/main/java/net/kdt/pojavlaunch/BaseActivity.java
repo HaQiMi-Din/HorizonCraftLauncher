@@ -11,7 +11,28 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocaleUtils.setLocale(newBase));
+        // LocaleUtils.setLocale also initializes LauncherPreferences.DEFAULT_PREF,
+        // so UiTheme can be safely queried right after.
+        Context localized = LocaleUtils.setLocale(newBase);
+        super.attachBaseContext(new AccentContextWrapper(localized));
+    }
+
+    /** Wraps the context so every Resources lookup resolves the MD3 role
+     *  colors (ui_accent and friends) from the user-selected accent. */
+    private static final class AccentContextWrapper extends ContextWrapper {
+        private final Resources mAccentResources;
+
+        AccentContextWrapper(Context base) {
+            super(base);
+            int accent = UiTheme.getAccentColor(base);
+            int[] scheme = UiTheme.buildColorScheme(base, accent);
+            mAccentResources = new AccentResources(base.getResources(), scheme);
+        }
+
+        @Override
+        public Resources getResources() {
+            return mAccentResources;
+        }
     }
 
     @Override

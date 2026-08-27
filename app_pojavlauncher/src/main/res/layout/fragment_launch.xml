@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/ui_accent"/>
+                    android:textColor="?attr/colorPrimary"/>
             </LinearLayout>
             <SeekBar
                 android:id="@+id/ram_seekbar"
@@ -103,7 +103,7 @@
                 android:text="@string/ui_launch_play"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"
-                android:textColor="@color/ui_on_accent"/>
+                android:textColor="?attr/colorOnPrimary"/>
         </LinearLayout>
 
         <!-- ============ Right: info & quick actions ============ -->

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.UiTheme;
 
 public class SelectAuthFragment extends Fragment {
     public static final String TAG = "AUTH_SELECT_FRAGMENT";
@@ -25,5 +26,10 @@ public class SelectAuthFragment extends Fragment {
 
         mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
         mLocalButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LocalLoginFragment.class, LocalLoginFragment.TAG, null));
+        // Follow the user-selected theme accent instead of the default green
+        UiTheme.applyAccentTint(mMicrosoftButton);
+        UiTheme.applyAccentTint(mLocalButton);
+        mMicrosoftButton.setTextColor(0xFFFFFFFF);
+        mLocalButton.setTextColor(0xFFFFFFFF);
     }
 }

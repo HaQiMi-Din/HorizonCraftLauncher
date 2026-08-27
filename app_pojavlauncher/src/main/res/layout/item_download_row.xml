@@ -37,5 +37,5 @@
         android:paddingHorizontal="@dimen/_16sdp"
         android:text="@string/ui_downloads_download"
         android:textSize="@dimen/_13ssp"
-        android:textColor="@color/ui_on_accent"/>
+        android:textColor="?attr/colorOnPrimary"/>
 </LinearLayout>

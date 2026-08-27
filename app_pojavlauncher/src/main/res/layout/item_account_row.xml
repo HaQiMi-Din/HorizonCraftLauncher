@@ -36,7 +36,7 @@
         android:layout_marginEnd="@dimen/_12sdp"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
-        android:textColor="@color/ui_accent"/>
+        android:textColor="?attr/colorPrimary"/>
 
     <Button
         android:id="@+id/acc_use"
@@ -46,7 +46,7 @@
         android:paddingHorizontal="@dimen/_16sdp"
         android:text="@string/ui_account_use"
         android:textSize="@dimen/_13ssp"
-        android:textColor="@color/ui_on_accent"/>
+        android:textColor="?attr/colorOnPrimary"/>
     <Button
         android:id="@+id/acc_logout"
         android:layout_width="wrap_content"

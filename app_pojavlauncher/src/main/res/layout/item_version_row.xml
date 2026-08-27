@@ -45,7 +45,7 @@
         android:paddingHorizontal="@dimen/_16sdp"
         android:text="@string/ui_play"
         android:textSize="@dimen/_13ssp"
-        android:textColor="@color/ui_on_accent"/>
+        android:textColor="?attr/colorOnPrimary"/>
     <Button
         android:id="@+id/row_edit"
         android:layout_width="wrap_content"

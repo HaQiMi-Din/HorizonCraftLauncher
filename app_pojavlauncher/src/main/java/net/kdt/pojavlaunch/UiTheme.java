@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
@@ -136,5 +137,32 @@ public final class UiTheme {
             if (ACCENTS[i].equals(name)) return ACCENT_COLORS[i];
         }
         return ACCENT_COLORS[0];
+    }
+
+    /** Build a full MD3 tonal scheme for the selected accent + current dark/light mode.
+     *  Order: { primary, onPrimary, primaryContainer, onPrimaryContainer,
+     *           secondaryContainer, onSecondaryContainer }
+     *  This lets every role of the Material 3 color system follow the accent. */
+    public static int[] buildColorScheme(Context ctx, int accent) {
+        boolean dark = isDark();
+        int primary, primaryContainer, onPrimaryContainer, secondaryContainer, onSecondaryContainer;
+        if (dark) {
+            primary = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.22f);
+            primaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.35f);
+            onPrimaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.60f);
+            secondaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.60f);
+            onSecondaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.50f);
+        } else {
+            primary = ColorUtils.blendARGB(accent, 0xFF000000, 0.15f);
+            primaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.70f);
+            onPrimaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.50f);
+            secondaryContainer = ColorUtils.blendARGB(accent, 0xFFFFFFFF, 0.85f);
+            onSecondaryContainer = ColorUtils.blendARGB(accent, 0xFF000000, 0.55f);
+        }
+        int onPrimary = (ColorUtils.calculateLuminance(primary) > 0.45f) ? 0xFF201A00 : 0xFFFFFFFF;
+        return new int[]{
+                primary, onPrimary, primaryContainer, onPrimaryContainer,
+                secondaryContainer, onSecondaryContainer
+        };
     }
 }
