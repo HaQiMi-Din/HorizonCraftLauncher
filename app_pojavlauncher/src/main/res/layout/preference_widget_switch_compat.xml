@@ -4,8 +4,9 @@
   The library widget leaves SwitchCompat with no textOn/textOff while
   showText defaults to true, which crashes SwitchCompat.onMeasure with an
   NPE (StaticLayout on null CharSequence) on Android 12+ / API 31+.
-  Setting app:showText="false" keeps the switch fully functional while
-  disabling the on/off label rendering that triggers the crash.
+  Setting app:showText=false plus empty textOn/textOff keeps the switch
+  fully functional while disabling the on/off label rendering that
+  triggers the crash.
 -->
 <androidx.appcompat.widget.SwitchCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,6 +15,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:showText="false"
+    android:textOn=""
+    android:textOff=""
     android:focusable="false"
     android:clickable="false"
     android:background="@null"/>
