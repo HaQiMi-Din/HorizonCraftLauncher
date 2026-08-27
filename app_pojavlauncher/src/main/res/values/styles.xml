@@ -17,6 +17,17 @@
         <item name="colorOnPrimaryContainer">@color/ui_on_primary_container</item>
         <item name="colorSecondaryContainer">@color/ui_secondary_container</item>
         <item name="colorOnSecondaryContainer">@color/ui_on_secondary_container</item>
+        <!-- Explicitly bind the framework text colors to the theme-adaptive ui colors.
+             Material3's DayNight textColorPrimary does not reliably switch to the
+             light-on-light scheme on every device, which made default text invisible
+             in light mode (white on light). Binding them directly to ui_text_* keeps
+             text legible in both modes. -->
+        <item name="android:textColorPrimary">@color/ui_text_primary</item>
+        <item name="android:textColorSecondary">@color/ui_text_secondary</item>
+        <item name="android:textColorHint">@color/ui_text_secondary</item>
+        <item name="textColorPrimary">@color/ui_text_primary</item>
+        <item name="textColorSecondary">@color/ui_text_secondary</item>
+        <item name="textColorHint">@color/ui_text_secondary</item>
         <item name="colorSurface">@color/ui_bg</item>
         <item name="colorOnSurface">@color/ui_text_primary</item>
         <item name="colorSurfaceVariant">@color/ui_surface</item>
