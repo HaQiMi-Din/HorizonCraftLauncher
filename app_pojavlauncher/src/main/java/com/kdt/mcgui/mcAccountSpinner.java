@@ -182,7 +182,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(mLoginBarWidth == -1) mLoginBarWidth = getWidth(); // Initial draw
+        if(mLoginBarWidth == -1) mLoginBarWidth = 0; // Idle: no login bar until a login actually starts
 
         float bottom = getHeight() - mLoginBarPaint.getStrokeWidth()/2;
         canvas.drawLine(0, bottom, mLoginBarWidth, bottom, mLoginBarPaint);

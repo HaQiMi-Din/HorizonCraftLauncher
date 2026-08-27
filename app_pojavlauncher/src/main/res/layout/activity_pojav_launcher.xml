@@ -131,15 +131,6 @@
             android:dropDownWidth="250dp"
             android:dropDownVerticalOffset="@dimen/_48sdp" />
 
-        <ImageButton
-            android:id="@+id/setting_button"
-            android:layout_width="@dimen/_44sdp"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_settings"
-            android:contentDescription="@string/ui_dock_settings"/>
     </LinearLayout>
 
     <View
