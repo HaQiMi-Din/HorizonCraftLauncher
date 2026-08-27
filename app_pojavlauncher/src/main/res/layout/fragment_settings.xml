@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/ui_bg">
+
+    <!-- ============ Left sidebar (GNOME settings style) ============ -->
+    <LinearLayout
+        android:id="@+id/settings_sidebar"
+        android:layout_width="190dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/ui_surface"
+        android:padding="@dimen/_12sdp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="@string/ui_settings_title"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            android:textColor="@color/ui_text_primary"/>
+
+        <TextView
+            android:id="@+id/side_appearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/_12sdp"
+            android:gravity="center_vertical"
+            android:text="@string/ui_settings_appearance"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/ui_text_primary"/>
+
+        <TextView
+            android:id="@+id/side_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/_12sdp"
+            android:gravity="center_vertical"
+            android:text="@string/ui_settings_layout"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/ui_text_primary"/>
+
+        <TextView
+            android:id="@+id/side_launch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/_12sdp"
+            android:gravity="center_vertical"
+            android:text="@string/ui_settings_launch"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/ui_text_primary"/>
+
+        <TextView
+            android:id="@+id/side_advanced"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/_12sdp"
+            android:gravity="center_vertical"
+            android:text="@string/ui_settings_advanced"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/ui_text_primary"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/ui_divider"/>
+
+    <!-- ============ Right content panel ============ -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <!-- ---- Appearance section ---- -->
+            <LinearLayout
+                android:id="@+id/sec_appearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ui_settings_appearance"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_text_primary"/>
+
+                <!-- Theme -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_bg_border"
+                    android:padding="@dimen/_16sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ui_settings_theme"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text_primary"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/theme_dark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_secondary"
+                            android:text="@string/ui_settings_theme_dark"
+                            android:textColor="@color/ui_text_primary"/>
+                        <Button
+                            android:id="@+id/theme_light"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:background="@drawable/btn_secondary"
+                            android:text="@string/ui_settings_theme_light"
+                            android:textColor="@color/ui_text_primary"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Accent color -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_bg_border"
+                    android:padding="@dimen/_16sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ui_settings_accent"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text_primary"/>
+                    <LinearLayout
+                        android:id="@+id/accent_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"/>
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/toggle_dynamic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/ui_settings_dynamic"
+                        android:textColor="@color/ui_text_primary"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ---- Layout section ---- -->
+            <LinearLayout
+                android:id="@+id/sec_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ui_settings_layout"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_text_primary"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_bg_border"
+                    android:padding="@dimen/_16sdp">
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/toggle_dock_labels"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ui_settings_dock_labels"
+                        android:textColor="@color/ui_text_primary"/>
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/toggle_clock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/ui_settings_clock"
+                        android:textColor="@color/ui_text_primary"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ---- Launch section ---- -->
+            <LinearLayout
+                android:id="@+id/sec_launch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ui_settings_launch"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_text_primary"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_bg_border"
+                    android:padding="@dimen/_16sdp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/ui_settings_ram"
+                            android:textColor="@color/ui_text_primary"/>
+                        <TextView
+                            android:id="@+id/settings_ram_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/ui_accent"/>
+                    </LinearLayout>
+                    <SeekBar
+                        android:id="@+id/settings_ram_seekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="2048"
+                        android:min="256"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/ui_settings_download_source"
+                        android:textColor="@color/ui_text_primary"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/source_default"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_secondary"
+                            android:text="@string/ui_settings_source_default"
+                            android:textColor="@color/ui_text_primary"/>
+                        <Button
+                            android:id="@+id/source_bmclapi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:background="@drawable/btn_secondary"
+                            android:text="@string/ui_settings_source_bmclapi"
+                            android:textColor="@color/ui_text_primary"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ---- Advanced section ---- -->
+            <LinearLayout
+                android:id="@+id/sec_advanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ui_settings_advanced"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_text_primary"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_bg_border"
+                    android:padding="@dimen/_16sdp">
+                    <Button
+                        android:id="@+id/advanced_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@string/ui_settings_advanced_settings"
+                        android:textColor="@color/ui_text_primary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ui_settings_advanced_desc"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/ui_text_secondary"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

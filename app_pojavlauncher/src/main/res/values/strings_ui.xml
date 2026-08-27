@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dock / navigation -->
+    <string name="ui_dock_launch">启动</string>
+    <string name="ui_dock_versions">版本</string>
+    <string name="ui_dock_downloads">下载</string>
+    <string name="ui_dock_modpacks">整合包</string>
+    <string name="ui_dock_settings">设置</string>
+    <string name="ui_dock_account">账户</string>
+    <string name="ui_brand">Horizon</string>
+
+    <!-- Launch page -->
+    <string name="ui_launch_title">开始游戏</string>
+    <string name="ui_launch_play">开始游戏</string>
+    <string name="ui_launch_account">账户：%1$s</string>
+    <string name="ui_launch_account_none">未选择账户</string>
+    <string name="ui_launch_ram">内存分配</string>
+    <string name="ui_launch_runtime">Java 运行时：%1$s</string>
+    <string name="ui_launch_version">版本：%1$s</string>
+    <string name="ui_launch_type">类型：%1$s</string>
+    <string name="ui_quick_actions">快捷操作</string>
+    <string name="ui_open_dir">打开游戏目录</string>
+    <string name="ui_install_jar">安装 .jar 模组</string>
+    <string name="ui_share_logs">分享日志</string>
+    <string name="ui_edit_profile">编辑当前档案</string>
+
+    <!-- Versions page -->
+    <string name="ui_versions_title">版本管理</string>
+    <string name="ui_versions_new">新建版本</string>
+    <string name="ui_versions_empty">还没有已安装的版本，去“下载”页装一个吧</string>
+    <string name="ui_play">启动</string>
+    <string name="ui_edit">编辑</string>
+    <string name="ui_delete">删除</string>
+    <string name="ui_delete_confirm">确定删除版本档案“%1$s”吗？</string>
+
+    <!-- Downloads page -->
+    <string name="ui_downloads_title">下载版本</string>
+    <string name="ui_downloads_all">全部</string>
+    <string name="ui_downloads_release">正式版</string>
+    <string name="ui_downloads_snapshot">快照</string>
+    <string name="ui_downloads_installed">已安装</string>
+    <string name="ui_downloads_download">下载</string>
+    <string name="ui_downloads_downloading">正在下载并启动 %1$s…</string>
+    <string name="ui_downloads_none">版本列表加载失败，请检查网络</string>
+
+    <!-- Modpacks page -->
+    <string name="ui_modpacks_title">整合包与模组</string>
+    <string name="ui_modpacks_vanilla">原版版本</string>
+    <string name="ui_modpacks_vanilla_desc">创建或管理原版游戏版本</string>
+    <string name="ui_modpacks_forge">Forge</string>
+    <string name="ui_modpacks_forge_desc">安装 Forge 加载器</string>
+    <string name="ui_modpacks_fabric">Fabric</string>
+    <string name="ui_modpacks_fabric_desc">安装 Fabric 加载器</string>
+    <string name="ui_modpacks_quilt">Quilt</string>
+    <string name="ui_modpacks_quilt_desc">安装 Quilt 加载器</string>
+    <string name="ui_modpacks_optifine">OptiFine</string>
+    <string name="ui_modpacks_optifine_desc">安装光影优化 OptiFine</string>
+    <string name="ui_modpacks_bta">BTA</string>
+    <string name="ui_modpacks_bta_desc">Better Than Adventure 版本</string>
+    <string name="ui_modpacks_search">整合包 / 模组搜索</string>
+    <string name="ui_modpacks_search_desc">从 Modrinth 搜索安装整合包</string>
+    <string name="ui_modpacks_jar">安装 .jar 文件</string>
+    <string name="ui_modpacks_jar_desc">本地安装 Forge/Fabric 安装器或模组</string>
+
+    <!-- Settings page -->
+    <string name="ui_settings_title">设置</string>
+    <string name="ui_settings_appearance">外观</string>
+    <string name="ui_settings_layout">布局</string>
+    <string name="ui_settings_launch">启动</string>
+    <string name="ui_settings_advanced">高级</string>
+    <string name="ui_settings_theme">主题</string>
+    <string name="ui_settings_theme_dark">深色</string>
+    <string name="ui_settings_theme_light">浅色</string>
+    <string name="ui_settings_accent">强调色</string>
+    <string name="ui_settings_dynamic">动态取色（Material You，Android 12+）</string>
+    <string name="ui_settings_dock_labels">Dock 显示文字标签</string>
+    <string name="ui_settings_clock">顶栏显示时钟</string>
+    <string name="ui_settings_ram">内存分配</string>
+    <string name="ui_settings_download_source">下载源</string>
+    <string name="ui_settings_source_default">官方</string>
+    <string name="ui_settings_source_bmclapi">BMCLAPI 镜像</string>
+    <string name="ui_settings_advanced_settings">Pojav 高级设置</string>
+    <string name="ui_settings_advanced_desc">打开完整的 Pojav 设置面板</string>
+
+    <!-- Account page -->
+    <string name="ui_account_title">账户管理</string>
+    <string name="ui_account_add">添加账户</string>
+    <string name="ui_account_empty">还没有账户，点右上角“添加账户”登录</string>
+    <string name="ui_account_type_ms">微软账户</string>
+    <string name="ui_account_type_offline">离线账户</string>
+    <string name="ui_account_logout">退出</string>
+    <string name="ui_account_use">使用</string>
+    <string name="ui_account_current">当前</string>
+</resources>

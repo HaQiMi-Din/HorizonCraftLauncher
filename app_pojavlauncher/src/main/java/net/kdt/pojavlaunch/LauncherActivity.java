@@ -1,5 +1,4 @@
 package net.kdt.pojavlaunch;
-
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import android.Manifest;
 import android.app.NotificationManager;
@@ -7,10 +6,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -20,17 +21,20 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
-
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
-
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.extra.ExtraListener;
-import net.kdt.pojavlaunch.fragments.MainMenuFragment;
+import net.kdt.pojavlaunch.fragments.AccountFragment;
+import net.kdt.pojavlaunch.fragments.DownloadsFragment;
+import net.kdt.pojavlaunch.fragments.LaunchFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
+import net.kdt.pojavlaunch.fragments.ModpacksFragment;
 import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
+import net.kdt.pojavlaunch.fragments.SettingsFragment;
+import net.kdt.pojavlaunch.fragments.VersionsFragment;
 import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;
@@ -47,32 +51,48 @@ import net.kdt.pojavlaunch.utils.DateUtils;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
-
 import java.lang.ref.WeakReference;
+import java.text.DateFormat;
 import java.text.ParseException;
-
+import java.util.Date;
 public class LauncherActivity extends BaseActivity {
     public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
-
     public final ActivityResultLauncher<Object> modInstallerLauncher =
             registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
                 if(data != null) Tools.launchModInstaller(this, data);
             });
-
     private mcAccountSpinner mAccountSpinner;
     private FragmentContainerView mFragmentView;
     private ImageButton mSettingsButton;
+    private TextView mClockView;
     private ProgressLayout mProgressLayout;
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
 
-    /* Allows to switch from one button "type" to another */
+    /* Dock navigation items: launch / versions / downloads / modpacks / settings / account */
+    private final TextView[] mDockItems = new TextView[6];
+    private static final int DOCK_LAUNCH = 0;
+    private static final int DOCK_VERSIONS = 1;
+    private static final int DOCK_DOWNLOADS = 2;
+    private static final int DOCK_MODPACKS = 3;
+    private static final int DOCK_SETTINGS = 4;
+    private static final int DOCK_ACCOUNT = 5;
+
+    /* Clock ticker for the GNOME-style top dock */
+    private final Handler mClockHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mClockRunnable = new Runnable() {
+        @Override public void run() {
+            updateClock();
+            mClockHandler.postDelayed(this, 1000);
+        }
+    };
+
+    /* Keep the dock highlight in sync with the visible fragment */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
-            mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
-                    ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
+            syncDockFromFragment(f);
         }
     };
 
@@ -85,30 +105,20 @@ public class LauncherActivity extends BaseActivity {
     /* Listener for the auth method selection screen */
     private final ExtraListener<Boolean> mSelectAuthMethod = (key, value) -> {
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
-        // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
-        if(!(fragment instanceof MainMenuFragment)) return false;
-
-        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+        if(fragment instanceof LaunchFragment || fragment instanceof AccountFragment) {
+            Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+        }
         return false;
     };
 
-    /* Listener for the settings fragment */
-    private final View.OnClickListener mSettingButtonListener = v -> {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
-        if(fragment instanceof MainMenuFragment){
-            Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, null);
-        } else{
-            // The setting button doubles as a home button now
-            Tools.backToMainMenu(this);
-        }
-    };
+    /* Right-side settings button also opens the settings dock page */
+    private final View.OnClickListener mSettingButtonListener = v -> openDockPage(DOCK_SETTINGS);
 
     private final ExtraListener<Boolean> mLaunchGameListener = (key, value) -> {
         if(mProgressLayout.hasProcesses()){
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
             return false;
         }
-
         String selectedProfile = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE,"");
         if (LauncherProfiles.mainProfileJson == null || !LauncherProfiles.mainProfileJson.profiles.containsKey(selectedProfile)){
             Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
@@ -119,7 +129,6 @@ public class LauncherActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
             return false;
         }
-
         if(mAccountSpinner.getSelectedAccount() == null){
             Toast.makeText(this, R.string.no_saved_accounts, Toast.LENGTH_LONG).show();
             ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
@@ -127,23 +136,19 @@ public class LauncherActivity extends BaseActivity {
         }
         String normalizedVersionId = AsyncMinecraftDownloader.normalizeVersionId(prof.lastVersionId);
         JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
-
         // Do not load when is a modded version or older than minecraft 1.3 on demo account
         if (mAccountSpinner.getSelectedAccount().isDemo()) {
             boolean isOlderThan13 = true;
-
             if (mcVersion != null) {
                 try {
                     isOlderThan13 = DateUtils.dateBefore(DateUtils.parseReleaseDate(mcVersion.releaseTime), 2012, 6, 22);
                 } catch (ParseException ignored) {}
             }
-
             if (isOlderThan13) {
                 Toast.makeText(this, R.string.toast_not_available_demo, Toast.LENGTH_LONG).show();
                 return false;
             }
         }
-
         new MinecraftDownloader().start(
                 this,
                 mcVersion,
@@ -152,7 +157,6 @@ public class LauncherActivity extends BaseActivity {
         );
         return false;
     };
-
     private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
         // Hide the notification that starts the game if there are tasks executing.
         // Prevents the user from trying to launch the game with tasks ongoing.
@@ -162,20 +166,16 @@ public class LauncherActivity extends BaseActivity {
             );
         }
     };
-
     private ActivityResultLauncher<String> mRequestNotificationPermissionLauncher;
     private WeakReference<Runnable> mRequestNotificationPermissionRunnable;
-
     @Override
     protected boolean shouldIgnoreNotch() {
         return getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT;
     }
-
     @Override
     public boolean setFullscreen() {
         return false;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,16 +183,11 @@ public class LauncherActivity extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...
         if(fragmentManager.getBackStackEntryCount() < 1) {
-            // Manually add the first fragment to the backstack to get easily back to it
-            // There must be a better way to handle the root though...
-            // (artDev: No, there is not. I've spent days researching this for another unrelated project.)
             fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
                     .addToBackStack("ROOT")
-                    .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
+                    .add(R.id.container_fragment, LaunchFragment.class, null, "ROOT").commit();
         }
-
-
         IconCacheJanitor.runJanitor();
         mRequestNotificationPermissionLauncher = registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
@@ -206,49 +201,47 @@ public class LauncherActivity extends BaseActivity {
         );
         getWindow().setBackgroundDrawable(null);
         bindViews();
+        bindDock();
         checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
-
         mSettingsButton.setOnClickListener(mSettingButtonListener);
         ProgressKeeper.addTaskCountListener(mProgressLayout);
         ExtraCore.addExtraListener(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
-
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
-
         new AsyncVersionList().getVersionList(versions -> ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions), false);
-
         mInstallTracker = new ModloaderInstallTracker(this);
-
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_MINECRAFT);
         mProgressLayout.observe(ProgressLayout.UNPACK_RUNTIME);
         mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentCallbackListener, true);
+        mClockHandler.post(mClockRunnable);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mClockHandler.removeCallbacks(mClockRunnable);
+    }
     @Override
     protected void onResume() {
         super.onResume();
         ContextExecutor.setActivity(this);
         mInstallTracker.attach();
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         ContextExecutor.clearActivity();
         mInstallTracker.detach();
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentCallbackListener, true);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -258,10 +251,8 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
-
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
     }
-
     /** Custom implementation to feel more natural when a backstack isn't present */
     @Override
     public void onBackPressed() {
@@ -272,20 +263,16 @@ public class LauncherActivity extends BaseActivity {
                 return;
             }
         }
-
         // Check if we are at the root then
         if(getVisibleFragment("ROOT") != null){
             finish();
         }
-
         super.onBackPressed();
     }
-
     @Override
     public void onAttachedToWindow() {
         LauncherPreferences.computeNotchSize(this);
     }
-
     @SuppressWarnings("SameParameterValue")
     private Fragment getVisibleFragment(String tag){
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
@@ -294,22 +281,11 @@ public class LauncherActivity extends BaseActivity {
         }
         return null;
     }
-
-    @SuppressWarnings("unused")
-    private Fragment getVisibleFragment(int id){
-        Fragment fragment = getSupportFragmentManager().findFragmentById(id);
-        if(fragment != null && fragment.isVisible()) {
-            return fragment;
-        }
-        return null;
-    }
-
     private void checkNotificationPermission() {
         if(LauncherPreferences.PREF_SKIP_NOTIFICATION_PERMISSION_CHECK ||
             checkForNotificationPermission()) {
             return;
         }
-
         if(ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS)) {
@@ -318,7 +294,6 @@ public class LauncherActivity extends BaseActivity {
         }
         askForNotificationPermission(null);
     }
-
     private void showNotificationPermissionReasoning() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.notification_permission_dialog_title)
@@ -327,7 +302,6 @@ public class LauncherActivity extends BaseActivity {
                 .setNegativeButton(android.R.string.cancel, (d, w)-> handleNoNotificationPermission())
                 .show();
     }
-
     private void handleNoNotificationPermission() {
         LauncherPreferences.PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = true;
         LauncherPreferences.DEFAULT_PREF.edit()
@@ -335,13 +309,11 @@ public class LauncherActivity extends BaseActivity {
                 .apply();
         Toast.makeText(this, R.string.notification_permission_toast, Toast.LENGTH_LONG).show();
     }
-
     public boolean checkForNotificationPermission() {
         return Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_DENIED;
     }
-
     public void askForNotificationPermission(Runnable onSuccessRunnable) {
         if(Build.VERSION.SDK_INT < 33) return;
         if(onSuccessRunnable != null) {
@@ -349,12 +321,85 @@ public class LauncherActivity extends BaseActivity {
         }
         mRequestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
     }
-
     /** Stuff all the view boilerplate here */
     private void bindViews(){
         mFragmentView = findViewById(R.id.container_fragment);
         mSettingsButton = findViewById(R.id.setting_button);
         mAccountSpinner = findViewById(R.id.account_spinner);
         mProgressLayout = findViewById(R.id.progress_layout);
+        mClockView = findViewById(R.id.dock_clock);
+    }
+
+    /** Wire the GNOME-style top dock navigation. */
+    private void bindDock(){
+        mDockItems[DOCK_LAUNCH] = findViewById(R.id.dock_launch);
+        mDockItems[DOCK_VERSIONS] = findViewById(R.id.dock_versions);
+        mDockItems[DOCK_DOWNLOADS] = findViewById(R.id.dock_downloads);
+        mDockItems[DOCK_MODPACKS] = findViewById(R.id.dock_modpacks);
+        mDockItems[DOCK_SETTINGS] = findViewById(R.id.dock_settings);
+        mDockItems[DOCK_ACCOUNT] = findViewById(R.id.dock_account);
+
+        mDockItems[DOCK_LAUNCH].setOnClickListener(v -> {
+            Tools.backToMainMenu(this);
+            setDockSelection(DOCK_LAUNCH);
+        });
+        mDockItems[DOCK_VERSIONS].setOnClickListener(v -> openDockPage(DOCK_VERSIONS));
+        mDockItems[DOCK_DOWNLOADS].setOnClickListener(v -> openDockPage(DOCK_DOWNLOADS));
+        mDockItems[DOCK_MODPACKS].setOnClickListener(v -> openDockPage(DOCK_MODPACKS));
+        mDockItems[DOCK_SETTINGS].setOnClickListener(v -> openDockPage(DOCK_SETTINGS));
+        mDockItems[DOCK_ACCOUNT].setOnClickListener(v -> openDockPage(DOCK_ACCOUNT));
+
+        // Dock label toggle ("icons only" mode)
+        boolean showLabels = UiTheme.showDockLabels();
+        for (TextView item : mDockItems) {
+            if (!showLabels) item.setText("");
+        }
+        setDockSelection(DOCK_LAUNCH);
+    }
+
+    /** Open a dock page, replacing the current content fragment. */
+    private void openDockPage(int dockIndex){
+        Fragment current = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
+        Class<? extends Fragment> target;
+        switch (dockIndex) {
+            case DOCK_VERSIONS: target = VersionsFragment.class; break;
+            case DOCK_DOWNLOADS: target = DownloadsFragment.class; break;
+            case DOCK_MODPACKS: target = ModpacksFragment.class; break;
+            case DOCK_SETTINGS: target = SettingsFragment.class; break;
+            case DOCK_ACCOUNT: target = AccountFragment.class; break;
+            default: return;
+        }
+        if (current != null && current.getClass() == target) {
+            setDockSelection(dockIndex);
+            return;
+        }
+        Tools.swapFragment(this, target, target.getName(), null);
+        setDockSelection(dockIndex);
+    }
+
+    private void setDockSelection(int index){
+        for (int i = 0; i < mDockItems.length; i++) {
+            if (mDockItems[i] != null) UiTheme.styleDockButton(mDockItems[i], i == index);
+        }
+    }
+
+    /** Map the resumed fragment back to a dock highlight. */
+    private void syncDockFromFragment(Fragment f){
+        int index = -1;
+        if (f instanceof LaunchFragment) index = DOCK_LAUNCH;
+        else if (f instanceof VersionsFragment) index = DOCK_VERSIONS;
+        else if (f instanceof DownloadsFragment) index = DOCK_DOWNLOADS;
+        else if (f instanceof ModpacksFragment) index = DOCK_MODPACKS;
+        else if (f instanceof SettingsFragment) index = DOCK_SETTINGS;
+        else if (f instanceof AccountFragment) index = DOCK_ACCOUNT;
+        if (index >= 0) setDockSelection(index);
+    }
+
+    private void updateClock(){
+        if (mClockView == null) return;
+        mClockView.setVisibility(UiTheme.showClock() ? View.VISIBLE : View.GONE);
+        if (UiTheme.showClock()) {
+            mClockView.setText(DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date()));
+        }
     }
 }

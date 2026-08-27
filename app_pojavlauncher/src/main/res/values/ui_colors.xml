@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material Design 3 color scheme — Light (used when night mode is OFF) -->
+<resources>
+    <color name="ui_bg">#FFF8F5</color>
+    <color name="ui_surface">#F8EBE2</color>
+    <color name="ui_card">#F3E6DD</color>
+    <color name="ui_card_border">#DAC9BE</color>
+    <color name="ui_topbar">#FAF1EA</color>
+    <color name="ui_text_primary">#211A14</color>
+    <color name="ui_text_secondary">#52443B</color>
+    <color name="ui_divider">#E1D2C8</color>
+    <color name="ui_accent">#FF7A29</color>
+    <color name="ui_on_accent">#FFFFFF</color>
+    <color name="ui_primary_container">#FFDCC7</color>
+    <color name="ui_on_primary_container">#5C1E00</color>
+    <color name="ui_secondary_container">#F6E0D2</color>
+    <color name="ui_on_secondary_container">#3B2A1F</color>
+    <color name="ui_error">#BA1A1A</color>
+</resources>

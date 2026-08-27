@@ -23,6 +23,7 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.tasks.AsyncAssetManager;
 import net.kdt.pojavlaunch.utils.*;
 import net.kdt.pojavlaunch.utils.FileUtils;
+import com.google.android.material.color.DynamicColors;
 
 public class PojavApplication extends Application {
 	public static final String CRASH_REPORT_TAG = "PojavCrashReport";
@@ -66,6 +67,12 @@ public class PojavApplication extends Application {
 				// In other cases, only initialize enough for the basicmost basics to work
 				// and not explode.
 				Tools.initEarlyConstants(this);
+			}
+			// Apply the highly-customizable Material Design 3 theme (dark/light) at startup.
+			UiTheme.applyTheme();
+			// Material You: derive the color scheme from the wallpaper on Android 12+.
+			if (UiTheme.useDynamicColor() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+				DynamicColors.applyToActivitiesIfAvailable(this);
 			}
 			Tools.DEVICE_ARCHITECTURE = Architecture.getDeviceArchitecture();
 			//Force x86 lib directory for Asus x86 based zenfones
