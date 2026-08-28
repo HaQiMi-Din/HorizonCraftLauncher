@@ -122,7 +122,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mStatusTextView.setVisibility(View.VISIBLE);
         switch (error) {
             case ERROR_INTERNAL:
-                mStatusTextView.setTextColor(Color.RED);
+                mStatusTextView.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.ui_error));
                 mStatusTextView.setText(R.string.search_modpack_error);
                 break;
             case ERROR_NO_RESULTS:

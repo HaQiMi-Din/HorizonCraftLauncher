@@ -46,6 +46,7 @@
 
     <!-- Modpacks page -->
     <string name="ui_modpacks_title">整合包与模组</string>
+    <string name="mod_thumbnail_description">模组封面</string>
     <string name="ui_modpacks_vanilla">原版版本</string>
     <string name="ui_modpacks_vanilla_desc">创建或管理原版游戏版本</string>
     <string name="ui_modpacks_forge">Forge</string>

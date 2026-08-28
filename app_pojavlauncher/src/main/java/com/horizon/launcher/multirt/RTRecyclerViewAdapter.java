@@ -155,7 +155,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAd
                 mFullJavaVersionTextView.setText(mContext.getString(R.string.multirt_runtime_incompatiblearch, runtime.arch));
             }
             mJavaVersionTextView.setText(runtime.name);
-            mFullJavaVersionTextView.setTextColor(Color.RED);
+            mFullJavaVersionTextView.setTextColor(androidx.core.content.ContextCompat.getColor(mContext, R.color.ui_error));
             mSetDefaultButton.setVisibility(View.GONE);
         }
 

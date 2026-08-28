@@ -54,7 +54,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final ModpackApi mModpackApi;
 
     /* Cache for ever so slightly rounding the image for the corner not to stick out of the layout */
-    private final float mCornerDimensionCache;
+    private final float mCornerRadius;
 
     private Future<?> mTaskInProgress;
     private SearchFilters mSearchFilters;
@@ -64,7 +64,8 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     public ModItemAdapter(Resources resources, ModpackApi api, SearchResultCallback callback) {
-        mCornerDimensionCache = resources.getDimension(R.dimen._1sdp) / 250;
+        // MD3 cards use a fixed ~12dp corner radius for thumbnails
+        mCornerRadius = resources.getDimension(R.dimen._12sdp);
         mModpackApi = api;
         mModItems = new ModItem[]{};
         mSearchResultCallback = callback;
@@ -253,7 +254,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 mImageReceiver = null;
                 mThumbnailBitmap = bm;
                 RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(mIconView.getResources(), bm);
-                drawable.setCornerRadius(mCornerDimensionCache * bm.getHeight());
+                drawable.setCornerRadius(mCornerRadius);
                 mIconView.setImageDrawable(drawable);
             };
             mIconCache.getImage(mImageReceiver, mModItem.getIconCacheTag(), mModItem.imageUrl);
