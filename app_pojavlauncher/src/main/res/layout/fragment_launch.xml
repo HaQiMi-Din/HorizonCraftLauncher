@@ -44,7 +44,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/bg_input"
                 android:drawableEnd="@drawable/spinner_arrow"
-                android:drawablePadding="@dimen/_8sdp"/>
+                android:drawablePadding="@dimen/_8sdp" android:textColor="@color/ui_text_primary"/>
 
             <!-- Account -->
             <TextView

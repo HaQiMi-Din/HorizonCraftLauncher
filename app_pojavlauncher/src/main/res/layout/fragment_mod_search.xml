@@ -103,6 +103,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/search_mod_list"
         app:layout_constraintEnd_toEndOf="@+id/search_mod_list"
         app:layout_constraintStart_toStartOf="@+id/search_mod_list"
-        app:layout_constraintTop_toTopOf="@+id/search_mod_list" />
+        app:layout_constraintTop_toTopOf="@+id/search_mod_list"  android:textColor="@color/ui_text_primary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

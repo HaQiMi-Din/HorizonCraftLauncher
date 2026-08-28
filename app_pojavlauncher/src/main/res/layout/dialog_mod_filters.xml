@@ -17,7 +17,7 @@
         android:text="@string/profiles_profile_version"
         app:layout_constraintTop_toTopOf="parent"
 
-        app:layout_constraintStart_toStartOf="@+id/search_mod_selected_mc_version_textview" />
+        app:layout_constraintStart_toStartOf="@+id/search_mod_selected_mc_version_textview"  android:textColor="@color/ui_text_primary"/>
 
     <TextView
         android:id="@+id/search_mod_selected_mc_version_textview"
@@ -33,7 +33,7 @@
 
         app:layout_constraintEnd_toStartOf="@+id/search_mod_mc_version_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_mod_mc_version_textview" />
+        app:layout_constraintTop_toBottomOf="@id/search_mod_mc_version_textview"  android:textColor="@color/ui_text_primary"/>
 
     <Button
         android:id="@+id/search_mod_mc_version_button"

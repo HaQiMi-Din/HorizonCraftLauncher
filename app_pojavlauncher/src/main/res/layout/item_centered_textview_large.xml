@@ -7,4 +7,4 @@
     android:ellipsize="marquee"
     android:textAlignment="inherit"
     android:gravity="center"
-    android:minHeight="48dp"/>
+    android:minHeight="48dp" android:textColor="@color/ui_text_primary"/>

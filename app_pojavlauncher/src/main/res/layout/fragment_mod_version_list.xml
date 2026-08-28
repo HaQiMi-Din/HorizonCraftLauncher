@@ -16,7 +16,7 @@
         android:textAlignment="center"
         android:gravity="center"
         android:layout_marginTop="@dimen/padding_large"
-        android:text="@string/forge_dl_select_version" />
+        android:text="@string/forge_dl_select_version"  android:textColor="@color/ui_text_primary"/>
 
     <View
         android:id="@+id/view"

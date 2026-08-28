@@ -22,7 +22,7 @@
         tools:drawableStart="@mipmap/ic_launcher"
 
 
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"  android:textColor="@color/ui_text_primary"/>
 
     <!-- Fun fact, if I put an Image button, the spinner fails to put an onclick listener on the extended view -->
     <ImageView

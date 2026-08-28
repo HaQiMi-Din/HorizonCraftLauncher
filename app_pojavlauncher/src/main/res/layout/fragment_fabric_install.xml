@@ -18,7 +18,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"  android:textColor="@color/ui_text_primary"/>
 
     <View
         android:id="@+id/view"
@@ -107,7 +107,7 @@
 
         android:text="@string/mcl_options"
         app:layout_constraintBottom_toTopOf="@+id/fabric_installer_only_stable_checkbox"
-        app:layout_constraintStart_toStartOf="@+id/fabric_installer_only_stable_checkbox" />
+        app:layout_constraintStart_toStartOf="@+id/fabric_installer_only_stable_checkbox"  android:textColor="@color/ui_text_primary"/>
     <CheckBox
         android:id="@+id/fabric_installer_only_stable_checkbox"
         android:layout_width="match_parent"

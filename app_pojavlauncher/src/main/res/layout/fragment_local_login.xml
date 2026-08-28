@@ -27,7 +27,7 @@
         android:text="@string/login_online_username_hint"
 
         app:layout_constraintBottom_toTopOf="@+id/login_edit_email"
-        app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
+        app:layout_constraintStart_toStartOf="@+id/login_edit_email"  android:textColor="@color/ui_text_primary"/>
 
 
     <com.kdt.mcgui.MineEditText
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toTopOf="@+id/login_menu"
-        app:layout_constraintVertical_bias="0.251" />
+        app:layout_constraintVertical_bias="0.251"  android:textColor="@color/ui_text_primary" android:textColorHint="@color/ui_text_secondary"/>
 
     <com.kdt.mcgui.MineButton
         android:id="@+id/login_button"
