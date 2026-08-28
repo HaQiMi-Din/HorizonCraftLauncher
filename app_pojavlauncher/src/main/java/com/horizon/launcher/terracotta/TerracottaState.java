@@ -150,7 +150,7 @@ public abstract class TerracottaState {
             JsonElement el = JsonParser.parseString(json);
             if (!el.isJsonObject()) return null;
             obj = el.getAsJsonObject();
-        } catch (Exception e) {
+        } catch (java.lang.Exception e) {
             return null;
         }
         int index = obj.has("index") ? obj.get("index").getAsInt() : -1;
@@ -176,7 +176,7 @@ public abstract class TerracottaState {
                         GuestStarting.Difficulty[] ds = GuestStarting.Difficulty.values();
                         int di = obj.get("difficulty").getAsInt();
                         if (di >= 0 && di < ds.length) d = ds[di];
-                    } catch (Exception ignored) {}
+                    } catch (java.lang.Exception ignored) {}
                 }
                 return new GuestStarting(index, d);
             }
@@ -200,7 +200,7 @@ public abstract class TerracottaState {
             for (JsonElement e : obj.getAsJsonArray("profiles")) {
                 try {
                     list.add(TerracottaProfile.fromJson(e.getAsJsonObject()));
-                } catch (Exception ignored) {}
+                } catch (java.lang.Exception ignored) {}
             }
         }
         return list;
