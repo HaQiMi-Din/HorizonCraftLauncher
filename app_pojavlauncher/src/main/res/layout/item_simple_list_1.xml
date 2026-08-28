@@ -13,6 +13,7 @@
     android:paddingTop="@dimen/padding_input_top"
     android:paddingBottom="@dimen/padding_input_bottom"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:textColor="@color/ui_text_primary"
 
 
     android:textSize="@dimen/_13ssp"

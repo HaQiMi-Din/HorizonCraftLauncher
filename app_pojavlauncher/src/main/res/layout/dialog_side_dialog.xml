@@ -50,6 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@color/ui_text_primary"
             android:visibility="gone"
 
             tools:visibility="visible"
@@ -62,6 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@color/ui_text_primary"
             android:visibility="gone"
 
             tools:text="Confirm"

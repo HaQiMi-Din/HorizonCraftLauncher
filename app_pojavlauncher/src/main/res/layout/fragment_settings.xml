@@ -323,11 +323,14 @@
                     android:padding="@dimen/_16sdp">
                     <Button
                         android:id="@+id/advanced_button"
-                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="start|center_vertical"
+                        android:minHeight="@dimen/_40sdp"
+                        android:paddingHorizontal="@dimen/_4sdp"
                         android:text="@string/ui_settings_advanced_settings"
+                        android:textSize="@dimen/_14ssp"
                         android:textColor="@color/ui_text_primary"/>
                     <TextView
                         android:layout_width="wrap_content"

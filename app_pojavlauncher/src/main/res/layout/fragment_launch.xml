@@ -159,36 +159,48 @@
                     android:textColor="@color/ui_text_primary"/>
                 <Button
                     android:id="@+id/quick_edit_profile"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="start|center_vertical"
+                    android:minHeight="@dimen/_40sdp"
+                    android:paddingHorizontal="@dimen/_4sdp"
                     android:text="@string/ui_edit_profile"
-                    android:textColor="@color/ui_text_secondary"/>
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/ui_text_primary"/>
                 <Button
                     android:id="@+id/quick_open_dir"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="start|center_vertical"
+                    android:minHeight="@dimen/_40sdp"
+                    android:paddingHorizontal="@dimen/_4sdp"
                     android:text="@string/ui_open_dir"
-                    android:textColor="@color/ui_text_secondary"/>
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/ui_text_primary"/>
                 <Button
                     android:id="@+id/quick_install_jar"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="start|center_vertical"
+                    android:minHeight="@dimen/_40sdp"
+                    android:paddingHorizontal="@dimen/_4sdp"
                     android:text="@string/ui_install_jar"
-                    android:textColor="@color/ui_text_secondary"/>
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/ui_text_primary"/>
                 <Button
                     android:id="@+id/quick_share_logs"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="start|center_vertical"
+                    android:minHeight="@dimen/_40sdp"
+                    android:paddingHorizontal="@dimen/_4sdp"
                     android:text="@string/ui_share_logs"
-                    android:textColor="@color/ui_text_secondary"/>
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/ui_text_primary"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
