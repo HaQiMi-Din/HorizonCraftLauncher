@@ -147,7 +147,7 @@ public class ColorSelector extends SideDialogView implements HueSelectionListene
                 mTextView.setTextColor(mTextColors);
                 runColor(color);
             }catch (NumberFormatException exception) {
-                mTextView.setTextColor(Color.RED);
+                mTextView.setTextColor(androidx.core.content.ContextCompat.getColor(mTextView.getContext(), R.color.ui_error));
             }
         }else{
             mWatch = true;
