@@ -121,7 +121,7 @@ public class DownloadsFragment extends Fragment {
         }
         subtitle.setText(sub);
 
-        boolean installed = new File(Tools.DIR_HOME_VERSION, v.id).exists();
+        boolean installed = new File(Tools.getVersionJsonPath(v.id)).isFile();
         if (installed) {
             button.setText(R.string.ui_downloads_installed);
             button.setBackgroundResource(R.drawable.btn_secondary);

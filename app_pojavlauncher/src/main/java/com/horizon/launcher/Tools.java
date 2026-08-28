@@ -117,8 +117,13 @@ public final class Tools {
 
     // New since 3.3.1
     public static String DIR_ACCOUNT_NEW;
-    public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/PojavLauncher";
+    public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/HCL";
+    /** Secondary data root: if an FCL folder exists next to HCL (or at the classic games/FCL path),
+     *  its .minecraft data is also read for compatibility. */
+    public static String DIR_GAME_HOME_FCL;
     public static String DIR_GAME_NEW;
+    public static String DIR_GAME_NEW_FCL;
+    public static String DIR_HOME_VERSION_FCL;
     public static String GAME_PROFILES_FILE;
 
     // New since 3.0.0
@@ -138,11 +143,14 @@ public final class Tools {
 
 
     private static File getPojavStorageRoot(Context ctx) {
-        if(SDK_INT >= 29) {
-            return ctx.getExternalFilesDir(null);
-        }else{
-            return new File(Environment.getExternalStorageDirectory(),"games/PojavLauncher");
+        // Horizon Craft Launcher: game data lives in an auto-created HCL folder at the
+        // root of internal storage (requires All Files Access on Android 11+).
+        File hclRoot = new File(Environment.getExternalStorageDirectory(), "HCL");
+        if (!hclRoot.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            hclRoot.mkdirs();
         }
+        return hclRoot;
     }
 
     /**
@@ -203,7 +211,62 @@ public final class Tools {
         CTRLMAP_PATH = DIR_GAME_HOME + "/controlmap";
         CTRLDEF_FILE = DIR_GAME_HOME + "/controlmap/default.json";
         GAME_PROFILES_FILE = Tools.DIR_GAME_NEW + "/launcher_profiles.json";
+        resolveFclDataRoot();
         switchDemo(isDemoProfile(ctx));
+    }
+
+    /** Locate an existing FCL data root: same level as HCL (root/FCL), else classic games/FCL. */
+    private static void resolveFclDataRoot() {
+        String[] candidates = {
+                new File(DIR_GAME_HOME).getParent() + "/FCL",   // same level as HCL
+                Environment.getExternalStorageDirectory() + "/games/FCL" // classic FCL location
+        };
+        DIR_GAME_HOME_FCL = null;
+        DIR_GAME_NEW_FCL = null;
+        DIR_HOME_VERSION_FCL = null;
+        for (String candidate : candidates) {
+            File fclMinecraft = new File(candidate, ".minecraft");
+            if (fclMinecraft.isDirectory()) {
+                DIR_GAME_HOME_FCL = candidate;
+                DIR_GAME_NEW_FCL = fclMinecraft.getAbsolutePath();
+                DIR_HOME_VERSION_FCL = DIR_GAME_NEW_FCL + "/versions";
+                break;
+            }
+        }
+    }
+
+    /** The FCL versions directory if present, otherwise null. */
+    public static File getFCLVersionsDir() {
+        if (DIR_HOME_VERSION_FCL == null) return null;
+        File dir = new File(DIR_HOME_VERSION_FCL);
+        return dir.isDirectory() ? dir : null;
+    }
+
+    /** Installed version ids merged from HCL and (if present) FCL. */
+    public static String[] listInstalledVersions() {
+        java.util.LinkedHashSet<String> set = new java.util.LinkedHashSet<>();
+        File hclVer = new File(DIR_HOME_VERSION);
+        if (hclVer.isDirectory()) {
+            String[] arr = hclVer.list();
+            if (arr != null) java.util.Collections.addAll(set, arr);
+        }
+        File fclVer = getFCLVersionsDir();
+        if (fclVer != null) {
+            String[] arr = fclVer.list();
+            if (arr != null) java.util.Collections.addAll(set, arr);
+        }
+        return set.toArray(new String[0]);
+    }
+
+    /** Path of a version json, preferring HCL, falling back to FCL. */
+    public static String getVersionJsonPath(String versionName) {
+        File hcl = new File(DIR_HOME_VERSION + "/" + versionName + "/" + versionName + ".json");
+        if (hcl.isFile()) return hcl.getAbsolutePath();
+        if (DIR_HOME_VERSION_FCL != null) {
+            File fcl = new File(DIR_HOME_VERSION_FCL + "/" + versionName + "/" + versionName + ".json");
+            if (fcl.isFile()) return fcl.getAbsolutePath();
+        }
+        return hcl.getAbsolutePath();
     }
 
     /**
@@ -503,9 +566,9 @@ public final class Tools {
         varArgMap.put("auth_player_name", username);
         varArgMap.put("auth_uuid", profile.profileId.replace("-", ""));
         varArgMap.put("auth_xuid", profile.xuid);
-        varArgMap.put("assets_root", Tools.ASSETS_PATH);
+        varArgMap.put("assets_root", Tools.getAssetsRoot());
         varArgMap.put("assets_index_name", versionInfo.assets);
-        varArgMap.put("game_assets", Tools.ASSETS_PATH);
+        varArgMap.put("game_assets", Tools.getAssetsRoot());
         varArgMap.put("game_directory", gameDir.getAbsolutePath());
         varArgMap.put("user_properties", "{}");
         varArgMap.put("user_type", userType);
@@ -562,7 +625,12 @@ public final class Tools {
     }
 
     public static String getClientClasspath(String version) {
-        return DIR_HOME_VERSION + "/" + version + "/" + version + ".jar";
+        File hclJar = new File(DIR_HOME_VERSION + "/" + version + "/" + version + ".jar");
+        if (!hclJar.isFile() && DIR_HOME_VERSION_FCL != null) {
+            File fclJar = new File(DIR_HOME_VERSION_FCL + "/" + version + "/" + version + ".jar");
+            if (fclJar.isFile()) return fclJar.getAbsolutePath();
+        }
+        return hclJar.getAbsolutePath();
     }
 
     private static String getLWJGL3ClassPath() {
@@ -881,11 +949,35 @@ public final class Tools {
             library.downloads = new DependentLibrary.LibraryDownloads(new MinecraftLibraryArtifact());
     }
 
+    /** Resolve a library jar under the libraries dir, preferring HCL, falling back to FCL. */
+    public static String getLibraryPath(String artifactPath) {
+        File hcl = new File(DIR_HOME_LIBRARY, artifactPath);
+        if (hcl.isFile()) return hcl.getAbsolutePath();
+        if (DIR_GAME_NEW_FCL != null) {
+            File fcl = new File(DIR_GAME_NEW_FCL + "/libraries", artifactPath);
+            if (fcl.isFile()) return fcl.getAbsolutePath();
+        }
+        return hcl.getAbsolutePath();
+    }
+
+    /** Resolve the assets root, preferring HCL, falling back to FCL if HCL has no assets yet. */
+    public static String getAssetsRoot() {
+        if (DIR_GAME_NEW_FCL != null) {
+            File hclAssets = new File(ASSETS_PATH);
+            File fclAssets = new File(DIR_GAME_NEW_FCL + "/assets");
+            boolean hclEmpty = !hclAssets.isDirectory() || hclAssets.list() == null || hclAssets.list().length == 0;
+            if (hclEmpty && fclAssets.isDirectory()) {
+                return fclAssets.getAbsolutePath();
+            }
+        }
+        return ASSETS_PATH;
+    }
+
     public static String[] generateLibClasspath(JMinecraftVersionList.Version info) {
         List<String> libDir = new ArrayList<>();
         for (DependentLibrary libItem: info.libraries) {
             if(!checkRules(libItem.rules)) continue;
-            libDir.add(Tools.DIR_HOME_LIBRARY + "/" + artifactToPath(libItem));
+            libDir.add(getLibraryPath(artifactToPath(libItem)));
         }
         return libDir.toArray(new String[0]);
     }
@@ -897,14 +989,14 @@ public final class Tools {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static JMinecraftVersionList.Version getVersionInfo(String versionName, boolean skipInheriting) {
         try {
-            JMinecraftVersionList.Version customVer = Tools.GLOBAL_GSON.fromJson(read(DIR_HOME_VERSION + "/" + versionName + "/" + versionName + ".json"), JMinecraftVersionList.Version.class);
+            JMinecraftVersionList.Version customVer = Tools.GLOBAL_GSON.fromJson(read(getVersionJsonPath(versionName)), JMinecraftVersionList.Version.class);
             if (skipInheriting || customVer.inheritsFrom == null || customVer.inheritsFrom.equals(customVer.id)) {
                 preProcessLibraries(customVer.libraries);
             } else {
                 JMinecraftVersionList.Version inheritsVer;
                 //If it won't download, just search for it
                 try{
-                    inheritsVer = Tools.GLOBAL_GSON.fromJson(read(DIR_HOME_VERSION + "/" + customVer.inheritsFrom + "/" + customVer.inheritsFrom + ".json"), JMinecraftVersionList.Version.class);
+                    inheritsVer = Tools.GLOBAL_GSON.fromJson(read(getVersionJsonPath(customVer.inheritsFrom)), JMinecraftVersionList.Version.class);
                 }catch(IOException e) {
                     throw new RuntimeException("Can't find the source version for "+ versionName +" (req version="+customVer.inheritsFrom+")");
                 }

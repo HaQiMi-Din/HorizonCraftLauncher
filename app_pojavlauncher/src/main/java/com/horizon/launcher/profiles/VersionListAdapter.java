@@ -13,7 +13,6 @@ import com.horizon.launcher.R;
 import com.horizon.launcher.Tools;
 import com.horizon.launcher.utils.FilteredSubList;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,8 +35,8 @@ public class VersionListAdapter extends BaseExpandableListAdapter implements Exp
         List<JMinecraftVersionList.Version> betaList = new FilteredSubList<>(versionList, item -> item.type.equals("old_beta"));
         List<JMinecraftVersionList.Version> alphaList = new FilteredSubList<>(versionList, item -> item.type.equals("old_alpha"));
 
-        // Query installed versions
-        mInstalledVersions = new File(Tools.DIR_GAME_NEW + "/versions").list();
+        // Query installed versions (HCL + FCL compatibility merge)
+        mInstalledVersions = Tools.listInstalledVersions();
         if(mInstalledVersions != null)
             Arrays.sort(mInstalledVersions);
 

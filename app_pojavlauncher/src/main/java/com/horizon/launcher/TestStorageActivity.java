@@ -5,8 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,10 +22,15 @@ import com.horizon.launcher.tasks.AsyncAssetManager;
 
 public class TestStorageActivity extends Activity {
     private final int REQUEST_STORAGE_REQUEST_CODE = 1;
+    private final int REQUEST_MANAGE_STORAGE_CODE = 2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(Build.VERSION.SDK_INT >= 23 && Build.VERSION.SDK_INT < 29 && !isStorageAllowed(this)) requestStoragePermission();
+        if(Build.VERSION.SDK_INT >= 30) {
+            // Android 11+: game data lives in /storage/emulated/0/HCL, needs All Files Access.
+            if(Environment.isExternalStorageManager()) exit();
+            else requestManageStorage();
+        }else if(Build.VERSION.SDK_INT >= 23 && Build.VERSION.SDK_INT < 29 && !isStorageAllowed(this)) requestStoragePermission();
         else exit();
     }
 
@@ -36,6 +44,36 @@ public class TestStorageActivity extends Activity {
                 Toast.makeText(this, R.string.toast_permission_denied, Toast.LENGTH_LONG).show();
                 requestStoragePermission();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_MANAGE_STORAGE_CODE) {
+            if(Build.VERSION.SDK_INT >= 30 && Environment.isExternalStorageManager()) {
+                exit();
+            } else {
+                Toast.makeText(this, R.string.toast_permission_denied, Toast.LENGTH_LONG).show();
+                requestManageStorage();
+            }
+        }
+    }
+
+    /** Ask for All Files Access (MANAGE_EXTERNAL_STORAGE) so the launcher can read/write /HCL. */
+    private void requestManageStorage() {
+        if(Build.VERSION.SDK_INT >= 30) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            try {
+                startActivityForResult(intent, REQUEST_MANAGE_STORAGE_CODE);
+            } catch (Exception e) {
+                // Some OEMs don't support the app-specific intent; fall back to the global page.
+                Intent fallback = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                startActivityForResult(fallback, REQUEST_MANAGE_STORAGE_CODE);
+            }
+        } else {
+            exit();
         }
     }
 
