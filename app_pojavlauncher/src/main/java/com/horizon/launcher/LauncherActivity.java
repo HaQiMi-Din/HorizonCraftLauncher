@@ -33,6 +33,7 @@ import com.horizon.launcher.fragments.MicrosoftLoginFragment;
 import com.horizon.launcher.fragments.ModpacksFragment;
 import com.horizon.launcher.fragments.SelectAuthFragment;
 import com.horizon.launcher.fragments.SettingsFragment;
+import com.horizon.launcher.fragments.TerracottaFragment;
 import com.horizon.launcher.fragments.VersionsFragment;
 import com.horizon.launcher.PojavProfile;
 import com.horizon.launcher.lifecycle.ContextAwareDoneListener;
@@ -70,13 +71,14 @@ public class LauncherActivity extends BaseActivity {
     private NotificationManager mNotificationManager;
 
     /* Dock navigation items: launch / versions / downloads / modpacks / settings / account */
-    private final TextView[] mDockItems = new TextView[6];
+    private final TextView[] mDockItems = new TextView[7];
     private static final int DOCK_LAUNCH = 0;
     private static final int DOCK_VERSIONS = 1;
     private static final int DOCK_DOWNLOADS = 2;
     private static final int DOCK_MODPACKS = 3;
-    private static final int DOCK_SETTINGS = 4;
-    private static final int DOCK_ACCOUNT = 5;
+    private static final int DOCK_TERRACOTTA = 4;
+    private static final int DOCK_SETTINGS = 5;
+    private static final int DOCK_ACCOUNT = 6;
 
     /* Clock ticker for the GNOME-style top dock */
     private final Handler mClockHandler = new Handler(Looper.getMainLooper());
@@ -333,6 +335,7 @@ public class LauncherActivity extends BaseActivity {
         mDockItems[DOCK_VERSIONS] = findViewById(R.id.dock_versions);
         mDockItems[DOCK_DOWNLOADS] = findViewById(R.id.dock_downloads);
         mDockItems[DOCK_MODPACKS] = findViewById(R.id.dock_modpacks);
+        mDockItems[DOCK_TERRACOTTA] = findViewById(R.id.dock_terracotta);
         mDockItems[DOCK_SETTINGS] = findViewById(R.id.dock_settings);
         mDockItems[DOCK_ACCOUNT] = findViewById(R.id.dock_account);
 
@@ -343,6 +346,7 @@ public class LauncherActivity extends BaseActivity {
         mDockItems[DOCK_VERSIONS].setOnClickListener(v -> openDockPage(DOCK_VERSIONS));
         mDockItems[DOCK_DOWNLOADS].setOnClickListener(v -> openDockPage(DOCK_DOWNLOADS));
         mDockItems[DOCK_MODPACKS].setOnClickListener(v -> openDockPage(DOCK_MODPACKS));
+        mDockItems[DOCK_TERRACOTTA].setOnClickListener(v -> openDockPage(DOCK_TERRACOTTA));
         mDockItems[DOCK_SETTINGS].setOnClickListener(v -> openDockPage(DOCK_SETTINGS));
         mDockItems[DOCK_ACCOUNT].setOnClickListener(v -> openDockPage(DOCK_ACCOUNT));
 
@@ -362,6 +366,7 @@ public class LauncherActivity extends BaseActivity {
             case DOCK_VERSIONS: target = VersionsFragment.class; break;
             case DOCK_DOWNLOADS: target = DownloadsFragment.class; break;
             case DOCK_MODPACKS: target = ModpacksFragment.class; break;
+            case DOCK_TERRACOTTA: target = TerracottaFragment.class; break;
             case DOCK_SETTINGS: target = SettingsFragment.class; break;
             case DOCK_ACCOUNT: target = AccountFragment.class; break;
             default: return;
@@ -387,6 +392,7 @@ public class LauncherActivity extends BaseActivity {
         else if (f instanceof VersionsFragment) index = DOCK_VERSIONS;
         else if (f instanceof DownloadsFragment) index = DOCK_DOWNLOADS;
         else if (f instanceof ModpacksFragment) index = DOCK_MODPACKS;
+        else if (f instanceof TerracottaFragment) index = DOCK_TERRACOTTA;
         else if (f instanceof SettingsFragment) index = DOCK_SETTINGS;
         else if (f instanceof AccountFragment) index = DOCK_ACCOUNT;
         if (index >= 0) setDockSelection(index);

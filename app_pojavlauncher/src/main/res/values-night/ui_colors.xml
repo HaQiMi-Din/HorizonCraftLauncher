@@ -15,5 +15,6 @@
     <color name="ui_on_primary_container">#FFDCC7</color>
     <color name="ui_secondary_container">#514137</color>
     <color name="ui_on_secondary_container">#FFDCC7</color>
+    <color name="ui_input">#1B1511</color>
     <color name="ui_error">#FFB4AB</color>
 </resources>

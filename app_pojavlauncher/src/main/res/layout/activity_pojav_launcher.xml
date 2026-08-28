@@ -88,6 +88,19 @@
             android:textColor="@color/ui_text_secondary"/>
 
         <TextView
+            android:id="@+id/dock_terracotta"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTop="@drawable/ic_multiplayer"
+            android:text="@string/ui_dock_multiplayer"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/ui_text_secondary"/>
+
+        <TextView
             android:id="@+id/dock_settings"
             android:layout_width="0dp"
             android:layout_height="match_parent"

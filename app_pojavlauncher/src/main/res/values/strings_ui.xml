@@ -7,6 +7,7 @@
     <string name="ui_dock_modpacks">整合包</string>
     <string name="ui_dock_settings">设置</string>
     <string name="ui_dock_account">账户</string>
+    <string name="ui_dock_multiplayer">联机</string>
     <string name="ui_brand">Horizon</string>
 
     <!-- Launch page -->

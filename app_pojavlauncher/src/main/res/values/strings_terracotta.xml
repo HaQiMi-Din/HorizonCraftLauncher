@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Terracotta (陶瓦联机) -->
+    <string name="terracotta_title">陶瓦联机</string>
+    <string name="terracotta_subtitle">基于 Terracotta / EasyTier 的免费 P2P 异地联机</string>
+    <string name="terracotta_exit">退出房间</string>
+
+    <string name="terracotta_status_title">联机状态</string>
+    <string name="terracotta_status_waiting">空闲</string>
+    <string name="terracotta_status_host_scanning">正在搜索节点…</string>
+    <string name="terracotta_status_host_starting">正在启动房间…</string>
+    <string name="terracotta_status_host_ok">房间已创建</string>
+    <string name="terracotta_status_guest_connecting">正在连接房间…</string>
+    <string name="terracotta_status_guest_starting">正在建立连接…</string>
+    <string name="terracotta_status_guest_ok">已连接</string>
+    <string name="terracotta_status_unknown">未知状态</string>
+    <string name="terracotta_status_detail_host_ok">邀请码已自动复制到剪贴板，发送给好友即可加入。</string>
+    <string name="terracotta_status_detail_guest_ok">连接成功！在游戏内「多人游戏 → 添加服务器」填入 %1$s</string>
+    <string name="terracotta_status_exception_ping_host_fail">无法连接房主（主机无响应）</string>
+    <string name="terracotta_status_exception_ping_host_rst">连接被房主拒绝</string>
+    <string name="terracotta_status_exception_guest_et_crash">房客端网络组件异常</string>
+    <string name="terracotta_status_exception_host_et_crash">房主端网络组件异常</string>
+    <string name="terracotta_status_exception_ping_server_rst">无法连接目标服务器</string>
+    <string name="terracotta_status_exception_scaffolding">服务端响应无效</string>
+
+    <string name="terracotta_host_title">我要当房主</string>
+    <string name="terracotta_host_desc">创建房间并生成邀请码，好友凭邀请码加入</string>
+    <string name="terracotta_host_create">创建房间</string>
+    <string name="terracotta_host_panel_title">房主设置</string>
+    <string name="terracotta_player_name_hint">玩家名称（默认取当前账户）</string>
+    <string name="terracotta_room_code_label">邀请码</string>
+    <string name="terracotta_copy">复制</string>
+    <string name="terracotta_host_hint">提示：先在游戏内「对局域网开放」并设为离线模式，再回来点击创建房间。</string>
+
+    <string name="terracotta_guest_title">我要当房客</string>
+    <string name="terracotta_guest_desc">输入好友分享的邀请码，加入房间一起游戏</string>
+    <string name="terracotta_guest_join">加入房间</string>
+    <string name="terracotta_guest_panel_title">房客设置</string>
+    <string name="terracotta_guest_code_hint">邀请码（例如 u/xxxx-xxxx-xxxx-xxxx）</string>
+    <string name="terracotta_guest_url_label">服务器地址（游戏内添加）</string>
+    <string name="terracotta_guest_hint">提示：房主需先创建房间并分享邀请码，好友再输入邀请码加入。</string>
+
+    <string name="terracotta_toast_code_copied">邀请码已复制</string>
+    <string name="terracotta_toast_url_copied">地址已复制</string>
+    <string name="terracotta_toast_code_empty">请输入邀请码</string>
+    <string name="terracotta_toast_code_invalid">邀请码无效，请检查后重试</string>
+    <string name="terracotta_permission_vpn">需要 VPN 权限才能建立联机连接</string>
+
+    <string name="terracotta_notification_title">陶瓦联机</string>
+    <string name="terracotta_notification_desc">%1$s · %2$s</string>
+    <string name="terracotta_notification_channel">陶瓦联机状态</string>
+    <string name="terracotta_player_kind_host">房主</string>
+    <string name="terracotta_player_kind_guest">房客</string>
+
+    <string name="terracotta_meta_format">Terracotta %1$s · EasyTier %2$s</string>
+    <string name="terracotta_meta_unavailable">Terracotta 未初始化</string>
+</resources>
